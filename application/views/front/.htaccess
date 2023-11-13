@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^$ index.php [NC,QSA,L]
+Options All -Indexes

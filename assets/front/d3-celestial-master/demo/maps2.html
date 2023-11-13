@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style type="text/css">
+    .marker-label {
+        font-size:11px !important;
+        width:50px;
+        overflow:hidden;
+        background:#ff385c;
+        background:#000000;
+        margin-top:40px;
+        padding:0px 5px;
+        border-radius:5px;
+        color:#fff !important;  
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;    
+    }
+
+    .marker-label2 {
+        font-size:16px !important;
+        font-weight: 700;
+        width:40px;
+        overflow:hidden;
+        background:#ff385c;
+        margin-top:60px;
+        padding:0px 5px;
+        border-radius:5px;
+        color:#fff !important;  
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;    
+    }    
+
+    #marker-content{
+    }
+  </style>
+</head>
+<body>
+
+
+<div id="map" style="height: 700px;width: 100%;"></div>
+
+
+<script type="text/javascript">
+var map;
+var service;
+var infowindow;
+
+let markers = [];
+var icon;
+var pyrmont;
+
+const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let labelIndex = 0;
+
+function initialize(str = "synagogue") {
+  pyrmont = new google.maps.LatLng(26.0478788,-80.18931549999999);
+
+  var zoom = 15;
+
+  if(str == 'synagogue-walking'){ 
+    zoom = 17
+  }
+
+  map = new google.maps.Map(document.getElementById('map'), {
+      center: pyrmont,
+      zoom: zoom,
+    styles: [
+      {
+        "featureType": "poi",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      }
+    ]      
+    });
+
+  var iconUrl = '';
+
+  if(str == 'synagogue'){
+    iconUrl = 'images/map-marker-1a.png';
+  }
+  else if(str == 'synagogue-walking'){
+   iconUrl = 'images/map-marker-1a.png';
+  }
+  else if(str == 'Kosher Restaurants'){    
+    iconUrl = 'images/map-marker-2a.png';
+  }
+  else if(str == 'Mikvah'){    
+    iconUrl = 'images/map-marker-3a.png';
+  }
+
+  icon = {
+      url: iconUrl, // url
+      scaledSize: new google.maps.Size(30, 30), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+  };
+
+
+
+  icon2 = {
+      url: "images/location.png", // url
+      scaledSize: new google.maps.Size(70, 70), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+  };
+
+  // Create the DIV to hold the control.
+  const centerControlDiv1 = document.createElement('div');
+  // Create the control.
+  const centerControl1 = createCenterControl1(map);
+  // Append the control to the DIV.
+  centerControlDiv1.appendChild(centerControl1);
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv1);  
+
+
+  // Create the DIV to hold the control.
+  const centerControlDiv2 = document.createElement('div');
+  // Create the control.
+  const centerControl2 = createCenterControl2(map);
+  // Append the control to the DIV.
+  centerControlDiv2.appendChild(centerControl2);
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv2);    
+
+
+    // Create the DIV to hold the control.
+  const centerControlDiv3 = document.createElement('div');
+  // Create the control.
+  const centerControl3 = createCenterControl3(map);
+  // Append the control to the DIV.
+  centerControlDiv3.appendChild(centerControl3);
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv3);  
+
+
+    // Create the DIV to hold the control.
+  const centerControlDiv4 = document.createElement('div');
+  // Create the control.
+  const centerControl4 = createCenterControl4(map);
+  // Append the control to the DIV.
+  centerControlDiv4.appendChild(centerControl4);
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv4);  
+
+
+
+  if(str == 'synagogue-walking'){
+    var request = {
+      location: pyrmont,
+      radius: '400',
+      query: 'synagogue'
+    }
+  }
+  else{
+    var request = {
+      location: pyrmont,
+      radius: '400',
+      query: str
+    }
+  }
+
+
+  service = new google.maps.places.PlacesService(map);
+  
+  if(str == 'synagogue-walking'){  
+  service.nearbySearch(request, callback);
+  }
+  else{
+  service.textSearch(request, callback);    
+  }
+
+
+  infowindow = new google.maps.InfoWindow({ map: map });
+
+
+  const marker2 = new google.maps.Marker({
+    map,
+    position: pyrmont,
+    icon: icon2,
+    label: {            
+        text: 'BNB',
+        className: 'marker-label2',          
+    }  ,
+    optimized: false,
+    zIndex: 99999    
+  });
+
+
+}
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      var place = results[i];
+      createMarker(results[i]);
+    }
+  }
+}  
+
+
+
+
+
+function createMarker(place) {
+  if (!place.geometry || !place.geometry.location) return;
+
+  const marker = new google.maps.Marker({
+    map,
+    position: place.geometry.location,
+    icon: icon,
+    label: labels[labelIndex++ % labels.length],
+
+
+    label: {            
+        text: place.name,
+        className: 'marker-label',          
+    }    
+  });
+
+  const contentString =
+      '<div id="marker-content">' +
+      '<div id="siteNotice">' +
+      "</div>" +
+      '<h3 id="firstHeading" class="firstHeading">'+place.name+'</h3>' +
+      '<div id="bodyContent">' +
+      "<p>"+place.formatted_address+"</p>" +
+      "</div>" +
+      "</div>";
+    infowindow = new google.maps.InfoWindow({
+      content: contentString,
+    });
+    marker.addListener("click", () => {
+      infowindow.open({
+        anchor: marker,
+        content: 'asdas',
+        map,
+      });
+    });
+  }
+
+
+ function createCenterControl1(map) {
+  const controlButton1 = document.createElement('button');
+  
+
+  // Set CSS for the control.
+  controlButton1.style.backgroundColor = '#fff';
+  controlButton1.style.border = '2px solid #fff';
+  controlButton1.style.borderRadius = '3px';
+  controlButton1.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlButton1.style.color = 'rgb(25,25,25)';
+  controlButton1.style.cursor = 'pointer';
+  controlButton1.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlButton1.style.fontSize = '16px';
+  controlButton1.style.lineHeight = '38px';
+  controlButton1.style.margin = '8px 22px';
+  controlButton1.style.padding = '0 5px';
+  controlButton1.style.textAlign = 'center';
+
+  controlButton1.innerHTML = '<img src="images/synagogue.png" height="20" style="margin-top:12px;"> Shuls/Minyans';
+  controlButton1.type = 'button';
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlButton1.addEventListener('click', () => {
+      // var request = {
+      //   location: pyrmont,
+      //   radius: '1000',
+      //   query: 'synagogue'
+      // };
+
+      // service = new google.maps.places.PlacesService(map);
+      // service.textSearch(request, callback);
+
+      initialize("synagogue");
+  });
+
+  return controlButton1;
+}
+
+
+ function createCenterControl2(map) {
+  const controlButton2 = document.createElement('button');
+  
+
+  // Set CSS for the control.
+  controlButton2.style.backgroundColor = '#fff';
+  controlButton2.style.border = '2px solid #fff';
+  controlButton2.style.borderRadius = '3px';
+  controlButton2.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlButton2.style.color = 'rgb(25,25,25)';
+  controlButton2.style.cursor = 'pointer';
+  controlButton2.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlButton2.style.fontSize = '16px';
+  controlButton2.style.lineHeight = '38px';
+  controlButton2.style.margin = '8px 22px';
+  controlButton2.style.padding = '0 5px';
+  controlButton2.style.textAlign = 'center';
+
+  controlButton2.innerHTML = '<img src="images/synagogue.png" height="20" style="margin-top:12px;"> Walking Distance to Shuls';
+  controlButton2.type = 'button';
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlButton2.addEventListener('click', () => {
+      // var request = {
+      //   location: pyrmont,
+      //   radius: '1000',
+      //   query: 'synagogue'
+      // };
+
+      // service = new google.maps.places.PlacesService(map);
+      // service.textSearch(request, callback);
+
+      initialize("synagogue-walking");
+  });
+
+  return controlButton2;
+}
+
+
+ function createCenterControl3(map) {
+  const controlButton3 = document.createElement('button');
+
+  // Set CSS for the control.
+  controlButton3.style.backgroundColor = '#fff';
+  controlButton3.style.border = '2px solid #fff';
+  controlButton3.style.borderRadius = '3px';
+  controlButton3.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlButton3.style.color = 'rgb(25,25,25)';
+  controlButton3.style.cursor = 'pointer';
+  controlButton3.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlButton3.style.fontSize = '16px';
+  controlButton3.style.lineHeight = '38px';
+  controlButton3.style.margin = '8px 22px';
+  controlButton3.style.padding = '0 5px';
+  controlButton3.style.textAlign = 'center';
+
+  controlButton3.innerHTML = '<img src="images/kosher.png" height="20" style="margin-top:12px;"> Kosher Restaurants';
+  controlButton3.type = 'button';
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlButton3.addEventListener('click', () => {
+      // var request = {
+      //   location: pyrmont,
+      //   radius: '1000',
+      //   query: 'Kosher Restaurants'
+      // };
+
+      // service = new google.maps.places.PlacesService(map);
+      // service.textSearch(request, callback);
+
+      initialize("Kosher Restaurants");      
+  });
+
+  return controlButton3;
+}
+
+
+
+ function createCenterControl4(map) {
+  const controlButton4 = document.createElement('button');
+
+  // Set CSS for the control.
+  controlButton4.style.backgroundColor = '#fff';
+  controlButton4.style.border = '2px solid #fff';
+  controlButton4.style.borderRadius = '3px';
+  controlButton4.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlButton4.style.color = 'rgb(25,25,25)';
+  controlButton4.style.cursor = 'pointer';
+  controlButton4.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlButton4.style.fontSize = '16px';
+  controlButton4.style.lineHeight = '38px';
+  controlButton4.style.margin = '8px 22px';
+  controlButton4.style.padding = '0 5px';
+  controlButton4.style.textAlign = 'center';
+
+  controlButton4.innerHTML = '<img src="images/swimming-pool.png" height="20" style="margin-top:12px;"> Mikvah';
+  controlButton4.type = 'button';
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlButton4.addEventListener('click', () => {
+      // var request = {
+      //   location: pyrmont,
+      //   radius: '1000',
+      //   query: 'Mikvah'
+      // };
+
+      // service = new google.maps.places.PlacesService(map);
+      // service.textSearch(request, callback);
+      initialize("Mikvah");
+  });
+
+  return controlButton4;
+}
+
+</script>
+
+<!-- <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6wia8aK8N3tbsi-b5X5tT7sfjjOdHf6g&libraries=places&callback=initialize">
+</script>     -->  
+
+
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsgYSueYZse9CbEwnONgVtagtBcpt7Ng8&libraries=places&callback=initialize">
+</script>      
+
+
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+.input {
+    background: #F4F4F4;
+    width: 100%;
+    padding: 8px 0;
+    border: 1px solid;
+    border-radius: 2px;
+}
+
+.nav {
+    background: #222;
+}

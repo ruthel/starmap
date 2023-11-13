@@ -1,0 +1,30 @@
+.input {
+    background: #F4F4F4;
+    width: 100%;
+    padding: 8px 0;
+    border: 1px solid;
+    border-radius: 2px;
+}
+
+.nav {
+    background: #222;
+}
+
+th {
+    background: #E6E6E6;
+    padding: 16px 8px;
+    border-bottom: 4px solid #222;
+}
+
+tr {
+    text-align: left;
+}
+
+tr > *:nth-child(1) {
+    width: 60%;
+}
+
+td {
+    padding-top: 16px;
+    vertical-align: top;
+}
