@@ -19,7 +19,7 @@
       </div>
       <div>
         <ul class="menu">
-          <li><a href="./checkout">Create a star map</a></li>
+          <li><a href="./editor">Create a star map</a></li>
           <li><a href="./about">About Us</a></li>
           <li><a href="./contact">Contact</a></li>
         </ul>
@@ -27,10 +27,9 @@
     </div>
     <div id="header-bloc">
       <div style="flex: 1">
-        <h1 style="font-size: 48px;font-weight: 500">Custom Star Map</h1>
-        <h2 style="font-size: 32px; max-width: 500px; margin-top: 48px; font-weight: 400">capture your special moment
-          forever</h2>
-        <button class="btn-create-map">Create a Custom Star Map</button>
+        <h1 style="font-size: 48px;font-weight: 500">Unique Star Map</h1>
+        <h2 style="font-size: 32px; max-width: 500px; margin-top: 48px; font-weight: 400">Eternal Memories in Celestial Art</h2>
+        <button class="btn-create-map" onclick="window.location.href = './editor'">Create a Custom Star Map</button>
       </div>
       <div>
         <img style="height: 460px; box-shadow: 10px 4px 6px .1px rgba(0,0,0,.8)" src="assets/media/img/start-map.png"
@@ -53,7 +52,7 @@
             <img src="assets/media/img/img_1.png" alt="">
             <div>
               <div>Instant Online Delivery via email</div>
-              <div>Express 3-5days</div>
+              <div>&nbsp;</div>
             </div>
             <div></div>
           </div>
@@ -81,7 +80,7 @@
       <div>
         <div
             style="display: grid; grid-template-columns: repeat(5,auto);column-gap: 24px; margin: 80px 0; align-items: center">
-          <a href="product-details">
+          <a href="productDetails">
             <img src="assets/media/personal_map/pmap_1.png" style="width: 180px" class="card" alt="#">
           </a>
           <img src="assets/media/personal_map/pmap_2.png" alt="#" style="width: 200px" class="card">

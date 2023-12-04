@@ -102,8 +102,8 @@
                 </div>
                 <p class="stockTxt pb-3">Availability: <span>In stock</span></p>
                 <div class="dual-button-wrap mt-2 d-flex flex-wrap">
-                    <a href="#sidebar-cart" data-bs-toggle="offcanvas" role="button" aria-controls="sidebar-cart" class="gen-btn gen-btn-2 me-2 mb-2">Add To Cart</a>
-                    <a href="checkout.php" class="gen-btn gen-btn-2 mb-2">Go To Checkout</a>
+                    <a href="./addToCart" data-bs-toggle="offcanvas" role="button" aria-controls="sidebar-cart" class="gen-btn gen-btn-2 me-2 mb-2">Add To Cart</a>
+                    <a href="./checkout" class="gen-btn gen-btn-2 mb-2">Go To Checkout</a>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
     </div>
     <div>
       <ul class="menu">
-        <li><a href="./map.html">Create a star map</a></li>
+        <li><a href="./editor">Create a star map</a></li>
         <li><a href="./about" class="activated">About Us</a></li>
         <li><a href="./contact">Contact</a></li>
       </ul>
