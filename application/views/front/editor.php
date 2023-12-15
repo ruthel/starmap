@@ -91,38 +91,37 @@
               <div class="mt-3"><strong>When was your special moment?</strong></div>
               <div class="d-flex justify-content-between mt-2" style="visibility: visible;">
                 <div id="map_day">
-                  <select name="map_day" class="p-2 rounded border" style="background: whitesmoke">
+                  <select name="map_day" id="map_day" class="p-2 rounded border" style="background: whitesmoke">
                     <?php for ($i = 1; $i <= 31; $i++) : ?>
                       <option value="<?= $i ?>"><?= $i ?></option>
                     <?php endfor; ?>
                   </select>
                 </div>
                 <div id="map_month">
-                  <select name="map_month" class="p-2 rounded border" style="background: whitesmoke">
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11" selected>November</option>
-                    <option value="12">December
-                    </option>
+                  <select name="map_month" id="map_month" class="p-2 rounded border" style="background: whitesmoke">
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10" selected>November</option>
+                    <option value="11">December</option>
                   </select>
                 </div>
                 <div id="map_year">
-                  <select name="map_year" class="p-2 rounded border" style="background: whitesmoke">
+                  <select name="map_year" id="map_year" class="p-2 rounded border" style="background: whitesmoke">
                     <?php for ($i = 1900; $i <= 2053; $i++) : ?>
                       <option value="<?= $i ?>"><?= $i ?></option>
                     <?php endfor; ?>
                   </select>
                 </div>
                 <div id="map_times">
-                  <select name="map_times" class="p-2 rounded border" style="background: whitesmoke">
+                  <select name="map_times" id="map_hour" class="p-2 rounded border" style="background: whitesmoke">
                     <?php for ($i = 0; $i <= 23; $i++) : ?>
                       <option value="<?= $i ?>"><?= $i ?>.00</option>
                     <?php endfor; ?>
@@ -395,13 +394,12 @@
     let d_a = $('#myform').serializeArray()
     if (d_a.map(e => e.value).includes("")) {
       ev.preventDefault()
-      console.log(d_a)
       alert("Fill all the field please !")
     }
   }
 
 
-  let DATE = new Date("2022-08-25T04:00:00+0000");
+  let DATE = new Date();
   let LAT = 95.525321;
   let LONG = -455.815916;
   const FONT = "Raleway";
@@ -495,14 +493,43 @@
 
   Celestial.display(config);
   Celestial.skyview({date: DATE});
-
-  // console.log(Celestial.rotate());
-
   map_draw();
+
+  $('#map_month').val(DATE.getMonth())
+  document.getElementById('map_month').onchange = (e) => {
+    DATE.setMonth(e.target.value)
+    Celestial.display(config);
+    Celestial.skyview({date: DATE});
+    map_draw();
+  }
+
+  $('#map_day').val(DATE.getDate())
+  document.getElementById('map_day').onchange = (e) => {
+    DATE.setDate(e.target.value)
+    Celestial.display(config);
+    Celestial.skyview({date: DATE});
+    map_draw();
+  }
+
+  $('#map_year').val(DATE.getFullYear())
+  document.getElementById('map_year').onchange = (e) => {
+    DATE.setFullYear(e.target.value)
+    Celestial.display(config);
+    Celestial.skyview({date: DATE});
+    map_draw();
+  }
+
+  $('#map_hour').val(DATE.getHours())
+  document.getElementById('map_hour').onchange = (e) => {
+    DATE.setHours(e.target.value)
+    Celestial.display(config);
+    Celestial.skyview({date: DATE});
+    map_draw();
+  }
 
   function map_draw() {
     Celestial.exportSVG((val) => {
-      console.log(val);
+      // console.log(val);
       $('#stars-image').html(val);
     });
 
@@ -654,7 +681,6 @@
           i++;
           Celestial.location([LAT, LONG]);
           Celestial.redraw();
-          console.log("place", LAT, LONG)
           map_draw();
 
           if (i === 2) {
@@ -726,7 +752,7 @@
   function getSVG() {
     domtoimage.toSvg(document.getElementById('custom-card-canvas'), {filter: filter})
       .then(function (dataUrl) {
-        console.log(dataUrl);
+        // console.log(dataUrl);
       });
   }
 
