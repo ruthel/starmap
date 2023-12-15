@@ -84,7 +84,8 @@
             <div class="tab-pane fade show active" id="moment" role="tabpanel" aria-labelledby="home-tab">
               <div class="">Please, give us the details of your special moment.</div>
               <div class="mt-3"><strong>Where were you looking at the sky?</strong></div>
-              <input type="text" id="map-location" placeholder="Type in an address" class="w-100 mt-1 py-2 rounded px-2 border"
+              <input type="text" id="map-location" placeholder="Type in an address"
+                     class="w-100 mt-1 py-2 rounded px-2 border"
                      style="background: whitesmoke" autocomplete="off"
                      name='map_diplay_address'>
               <div class="mt-3"><strong>When was your special moment?</strong></div>
@@ -617,7 +618,6 @@
     // Create the search box and link it to the UI element.
     const input = document.getElementById("map-location");
     const searchBox = new google.maps.places.SearchBox(input);
-    console.log(searchBox)
 
 
     let markers = [];
@@ -654,6 +654,7 @@
           i++;
           Celestial.location([LAT, LONG]);
           Celestial.redraw();
+          console.log("place", LAT, LONG)
           map_draw();
 
           if (i === 2) {
@@ -683,7 +684,7 @@
   });
 
 </script>
-<script src="<?php echo base_url('assets/front/dom-to-image-master/src/');?>dom-to-image.js" />
+<script src="<?php echo base_url('assets/front/dom-to-image-master/src/'); ?>dom-to-image.js"/>
 <script>
   domtoimage.toPng(node)
 </script>
