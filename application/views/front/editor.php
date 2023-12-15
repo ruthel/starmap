@@ -128,6 +128,10 @@
                   </select>
                 </div>
               </div>
+
+              <div class="mt-3"><strong>Image to upload</strong></div>
+              <input type="file" id="file-input" class="w-100 mt-1 mb-3 py-2 rounded px-2 border"
+                     style="background: whitesmoke">
               <br>
             </div>
             <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="profile-tab">
@@ -370,25 +374,25 @@
 <script type="text/javascript">
 
 
-  // const fileInput = document.getElementById('file-input');
+  const fileInput = document.getElementById('file-input');
   const imagePreview = document.getElementById('imagePreview');
 
-  // fileInput.addEventListener('change', function () {
-  //   const selectedFile = fileInput.files[0];
-  //
-  //   if (selectedFile) {
-  //     const reader = new FileReader();
-  //
-  //     reader.onload = function (event) {
-  //       imagePreview.src = event.target.result;
-  //     };
-  //
-  //     reader.readAsDataURL(selectedFile);
-  //   } else {
-  //     // Handle the case where no file is selected or the selected file is not an image.
-  //     imagePreview.src = "";
-  //   }
-  // });
+  fileInput.addEventListener('change', function () {
+    const selectedFile = fileInput.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        imagePreview.src = event.target.result;
+      };
+
+      reader.readAsDataURL(selectedFile);
+    } else {
+      // Handle the case where no file is selected or the selected file is not an image.
+      imagePreview.src = "";
+    }
+  });
 
   function submitMap(ev) {
     let d_a = $('#myform').serializeArray()
@@ -704,7 +708,7 @@
 
   window.initAutocomplete = initAutocomplete;
 
-  $('.address-text').on('change keyup', function () {
+  $('#map-location').on('change keyup', function () {
     place_name = $(this).val();
     $('.custom-card .texts .place-name').text(place_name);
   });
