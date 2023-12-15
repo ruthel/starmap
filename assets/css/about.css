@@ -6,6 +6,24 @@
     border-radius: 2px;
 }
 
-.nav {
-    background: #222;
+body {
+    min-height: 100vh;
+    height: auto;
+    background: url(../front/images/body-2.jpg) center;
+    background-size: cover;
+}
+
+.our-team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.our-team li {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.our-team img {
+    width: 100%;
 }

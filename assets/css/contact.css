@@ -3,9 +3,11 @@
     width: 100%;
     padding: 8px 0;
     border: 1px solid;
-    border-radius: 2px;
+    border-radius: 4px;
 }
-
-.nav {
-    background: #222;
+body {
+    min-height: 100vh;
+    height: auto;
+    background: url(../front/images/body-2.jpg) center;
+    background-size: cover;
 }

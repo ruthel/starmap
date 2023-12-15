@@ -17,9 +17,10 @@ class Ecommerce extends Front_controller
       'map_place' => $this->input->post('map_place'),
       'map_subtitle' => $this->input->post('map_subtitle'),
       'map_style_poster' => $this->input->post('map_style_poster'),
-      'map_size' => $this->input->post('size'),
+      'map_size' => $this->input->post('map_size'),
       'map_color' => $this->input->post('color'),
       'map_diplay_address' => $this->input->post('map_diplay_address'),
+      'map_frame' => $this->input->post('map_frame'),
       'map_date' => $this->input->post('map_date'),
       'map_custom_text' => $this->input->post('map_custom_text'),
     );
@@ -30,19 +31,22 @@ class Ecommerce extends Front_controller
     redirect('checkout');
   }
 
-  public function order($id)
+  public function order()
   {
+//    $content = array(
+//      'customer_first_name' => $this->input->post('customer_first_name'),
+//      'customer_last_name' => $this->input->post('customer_last_name'),
+//      'customer_email' => $this->input->post('customer_email'),
+//      'customer_message' => $this->input->post('customer_message'),
+//    );
+
     $content = array(
-      'customer_first_name' => $this->input->post('customer_first_name'),
-
-      'customer_last_name' => $this->input->post('customer_last_name'),
-
-      'customer_email' => $this->input->post('customer_email'),
-
-      'customer_message' => $this->input->post('customer_message'),
-
-
+      'customer_first_name' => "aa",
+      'customer_last_name' => "aa",
+      'customer_email' => "aa",
+      'customer_message' => "aa",
     );
+
     $data = array();
     $data['table'] = 'customer';
     $id = $this->general->insert($data, $content);

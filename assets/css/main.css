@@ -31,7 +31,6 @@ html, body {
     display: flex;
     justify-items: center;
     width: 100%;
-    margin-bottom: 16px;
 }
 
 .menu {
@@ -61,7 +60,7 @@ html, body {
     background: rgba(255, 255, 255, .05);
 }
 
-.menu a.activated{
+.menu a.activated {
     background: rgba(255, 255, 255, .2) !important;
 }
 

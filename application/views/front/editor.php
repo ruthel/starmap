@@ -19,205 +19,8 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-    .colors label.selected {
-        border: 3px double white;
-    }
-
-    #stars-image {
-        max-width: 100%;
-        max-height: 100%;
-        margin: 0 auto;
-    }
-
-    #stars-image svg {
-        max-width: 100%;
-        max-height: 100%;
-        height: auto;
-        width: 60%;
-    }
-
-
-    .custom-card {
-        background-color: #000000;
-        position: relative;
-        /* padding: 40px; */
-        text-align: center;
-        height: 100vh;
-        max-height: 650px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        box-shadow: 1px 1px 8px 8px #0000003b;
-        margin: 0 auto;
-        transition-duration: .5s;
-    }
-
-    .custom-card.portrait {
-        aspect-ratio: 193 / 258;
-    }
-
-
-    .custom-card.landscape {
-        aspect-ratio: 272 / 201;
-    }
-
-    .custom-card.square {
-        aspect-ratio: 1 / 1;
-    }
-
-    .custom-card.landscape #stars-image {
-        max-width: 70%;
-        max-height: 70%;
-    }
-
-    .custom-card .texts .text-content {
-        font-size: 50%;
-        font-weight: 700;
-        color: #fff;
-        margin-top: 10px;
-    }
-
-    .custom-card .texts .place-name {
-        font-size: 13px;
-        font-weight: 400;
-        color: #fff;
-        margin: 0;
-    }
-
-    .custom-card .texts .long-lat {
-        font-size: 13px;
-        font-weight: 400;
-        color: #fff;
-        margin: 0;
-    }
-
-    .custom-card .texts .date {
-        font-size: 13px;
-        font-weight: 400;
-        color: #fff;
-        margin: 0;
-    }
-
-    .custom-card .texts {
-        width: 100%;
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    .custom-card::before {
-        position: absolute;
-        background: none;
-        content: "";
-        height: 95%;
-        width: 95%;
-        top: 2.5%;
-        left: 2.5%;
-        border: 2px solid #fff;
-    }
-
-    .custom-card .user-image {
-        width: 190px;
-        border-radius: 15px;
-        overflow: hidden;
-        margin: 10px;
-    }
-
-    .custom-card .user-image img {
-        width: 100%;
-    }
-
-    body {
-        min-height: 100vh;
-        height: auto;
-        background: url(assets/front/images/body-2.jpg) center;
-        background-size: cover;
-    }
-
-    .colors label {
-        height: 30px;
-        width: 30px;
-    }
-
-    .colors label input {
-        display: none;
-    }
-
-    .colors {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-
-    .sizes {
-        display: flex;
-        gap: 7px;
-    }
-
-    .sizes .portrait {
-        height: 70px;
-        width: 50px;
-        border: 2px solid #5c5c5c;
-    }
-
-    .sizes input[type="radio"] {
-        display: none;
-    }
-
-    .sizes .landscape {
-        height: 50px;
-        width: 70px;
-        border: 2px solid #5c5c5c;
-    }
-
-    .sizes .square {
-        height: 50px;
-        width: 50px;
-        border: 2px solid #5c5c5c;
-    }
-
-    .sizes label.selected {
-        border-color: #fff;
-    }
-
-    .form-control {
-        background: #ffffff12;
-        color: #fff;
-    }
-
-    .form-control:focus {
-        background: #ffffff12;
-        color: #fff;
-    }
-
-</style>
-<style>
-    /*
-   * Always set the map height explicitly to define the size of the div element
-   * that contains the map.
-   */
-    #map {
-        height: 100%;
-    }
-
-    .pac-controls label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-    }
-
-    #title {
-        color: #fff;
-        background-color: #4d90fe;
-        font-size: 25px;
-        font-weight: 500;
-        padding: 6px 12px;
-    }
-</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="assets/css/editor.css">
 <link rel="stylesheet" href="assets/css/main.css">
 <div style="overflow:hidden;margin:0 auto;display: none;">
   <div id="celestial-map"></div>
@@ -262,7 +65,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <form method='POST' action='<?php echo base_url('ecommerce'); ?>'>
+        <form method='POST' onsubmit="submitMap(event)" action='<?php echo base_url('ecommerce'); ?>' id="myform">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" onclick="tab('moment')">
             <span class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -281,19 +84,20 @@
             <div class="tab-pane fade show active" id="moment" role="tabpanel" aria-labelledby="home-tab">
               <div class="">Please, give us the details of your special moment.</div>
               <div class="mt-3"><strong>Where were you looking at the sky?</strong></div>
-              <input type="text" id="map-location" placeholder="Type in an address" class="w-100 mt-1"
-                     style="background: #E6E6E6; border: 1px solid gray" autocomplete="off" name='map_diplay_address'>
+              <input type="text" id="map-location" placeholder="Type in an address" class="w-100 mt-1 py-2 rounded px-2 border"
+                     style="background: whitesmoke" autocomplete="off"
+                     name='map_diplay_address'>
               <div class="mt-3"><strong>When was your special moment?</strong></div>
               <div class="d-flex justify-content-between mt-2" style="visibility: visible;">
                 <div id="map_day">
-                  <select name="map_day" class="p-2" style="background: #E6E6E6">
+                  <select name="map_day" class="p-2 rounded border" style="background: whitesmoke">
                     <?php for ($i = 1; $i <= 31; $i++) : ?>
                       <option value="<?= $i ?>"><?= $i ?></option>
                     <?php endfor; ?>
                   </select>
                 </div>
                 <div id="map_month">
-                  <select name="map_month" class="p-2" style="background: #E6E6E6">
+                  <select name="map_month" class="p-2 rounded border" style="background: whitesmoke">
                     <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>
@@ -310,14 +114,14 @@
                   </select>
                 </div>
                 <div id="map_year">
-                  <select name="map_year" class="p-2" style="background: #E6E6E6">
+                  <select name="map_year" class="p-2 rounded border" style="background: whitesmoke">
                     <?php for ($i = 1900; $i <= 2053; $i++) : ?>
                       <option value="<?= $i ?>"><?= $i ?></option>
                     <?php endfor; ?>
                   </select>
                 </div>
                 <div id="map_times">
-                  <select name="map_times" class="p-2" style="background: #E6E6E6">
+                  <select name="map_times" class="p-2 rounded border" style="background: whitesmoke">
                     <?php for ($i = 0; $i <= 23; $i++) : ?>
                       <option value="<?= $i ?>"><?= $i ?>.00</option>
                     <?php endfor; ?>
@@ -329,33 +133,37 @@
             <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="profile-tab">
               <div>Add your message, title, and footnote to make it more personal</div>
               <div class="mt-3">Enter your personal message</div>
-              <textarea id="map-message" rows="5" class="w-100" name="map_custom_text"></textarea>
-              <div class="mt-3">Title</div>
-              <input type="text" id="map-title" name="map_place" class="w-100" placeholder="Title">
-              <div class="mt-3">Subtitle</div>
-              <input type="text" id="map-title" name="map_subtitle" value="New York" class="w-100"
+              <textarea id="map-message" rows="5" class="w-100 rounded border" name="map_custom_text"
+                        style="resize: none"></textarea>
+              <label class="mt-3" for="map-title">Title</label>
+              <input type="text" id="map-title" name="map_place" class="w-100 p-2 rounded border" placeholder="Title"/>
+              <label class="mt-3" for="map-subtitle">Subtitle</label>
+              <input type="text" id="map-subtitle" name="map_subtitle" class="w-100 p-2 rounded border"
                      placeholder="Subtitle">
               <div class="mt-3">Subtitle</div>
               <div class="d-flex align-items-center">
-                <div class="px-2 py-1" style="background: #CCCCCC;border: 1px solid gray; border-right: none">http://
+                <div class="p-2 border rounded-start" style="background: #CCCCCC; border-right: none">http://
                 </div>
-                <input type="file" class="flex-grow-1 py-1 form-control"
-                       style="background: #E6E6E6; border: 1px solid gray" name="map_subtitle_link"
-                       id="map-intmess" pattern="http://">
+                <input type="text" class="flex-grow-1 p-2 border rounded-end"
+                       style="background: whitesmoke;" id="map-intmess">
               </div>
-              <button class="small mt-1 border-1">Enter any external link (instagram post, youtub video, etc</button>
+              <button class="small mt-1 border-1 rounded border" style="font-size: 12px">Enter any external link
+                (instagram post, youtube video, etc
+              </button>
+              <br>
               <br>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <div class="step block3" style="display: block;">
-                <div class="hint">Customize your design by selecting a template, size, frame and additional features of
+                <div class="hint mb-3">Customize your design by selecting a template, size, frame and additional
+                  features of
                   your star map.
                 </div>
                 <div class="mstep4">
-                  <label>Select the template of your star map</label>
-                  <div class="themes-group">
-                    <ul id="map-themes"
-                        style="padding-bottom: 91.2px;list-style: none; display: grid; grid-template-columns: repeat(5,1fr); gap: 8px">
+                  <label><strong>Select the template of your star map</strong></label>
+                  <div class="themes-group mb-3 mt-1">
+                    <ul id="map-themes" class="p-0"
+                        style="list-style: none; display: grid; grid-template-columns: repeat(5,1fr); gap: 8px">
                       <li id="map-theme2" class="col" style="height: 76px;">
                         <picture>
                           <source type="image/webp"
@@ -477,18 +285,18 @@
                                alt=""></picture>
                       </li>
                     </ul>
-                    <div id="hideshow" style="height: 91.2px;">
-                      <div>Show less <i class="arrow-up"></i></div>
+                    <div id="hideshow" class="text-center small">
+                      <div><strong>Show less</strong></div>
                     </div>
                   </div>
                 </div>
-                <div class="mstep5 hides">
+                <div class="mstep5 hides mb-3">
                   <input type="checkbox" class="checkbox" id="map-pdf-only"><label for="map-pdf-only" class="hint2">
-                    <span class="map-pdf-only">Digital version only <strong>(63% OFF)</strong></span>
+                    <span class="map-pdf-only small">Digital version only <strong>(63% OFF)</strong></span>
                   </label>
                   <span class="mobile_hint" style="display: none;">You will receive a PDF file right after the purchase. If you wish to receive a printed/framed copy to your chosen address, please, unselect this checkbox</span>
                 </div>
-                <div class="mb-3 nopdf d-flex w-100 rounded-pill" style="background: lightgrey">
+                <div class="mb-3 nopdf d-flex w-100 rounded-pill" style="background: whitesmoke">
                   <div class="py-2 px-3 radio-type">
                     <input value="0" name="typePoster" type="radio" id="poster" checked=""><label class="radio_label"
                                                                                                   for="poster">Poster</label>
@@ -500,56 +308,49 @@
 
                 <div class="d-flex w-100 justify-content-between mb-1" style="color: black">
                   <div class="radio">
-                    <input value="Without frame" name="map_style_poster" type="radio" id="Without frame" checked><label
-                        class="radio_label" for="without">&nbsp;Without frame</label>
+                    <input value="Without frame" name="map_style_poster" type="radio" id="without" checked
+                           onchange="function nam(){$('#fameType').hide()}">
+                    <label class="radio_label" for="without">&nbsp;Without frame</label>
                   </div>
                   <div class="radio">
-                    <input value="Frame" name="map_style_poster" type="radio" id="Frame"><label class="radio_label"
-                                                                                                for="frame">&nbsp;Frame</label>
+                    <input value="Frame" name="map_style_poster" type="radio" id="frame">
+                    <label class="radio_label" for="frame">&nbsp;Frame</label>
                   </div>
                   <div class="radio">
-                    <input value="Hanger" name="map_style_poster" type="radio" id="Hanger"><label class="radio_label"
+                    <input value="Hanger" name="map_style_poster" type="radio" id="hanger"><label class="radio_label"
                                                                                                   for="hanger">&nbsp;Hanger</label>
                   </div>
 
                 </div>
-                <div class="radio-group-decal nopdf hide">
-                  <div class="radio">
-                    <input class="radio_input-poster" value="0" name="styleDecal" type="radio" id="matte"
-                           checked=""><label class="radio_label" for="matte">Matte</label>
-                  </div>
-                  <div class="radio">
-                    <input class="radio_input-poster" value="1" name="styleDecal" type="radio" id="glossy"><label
-                        class="radio_label" for="glossy">Glossy</label>
-                  </div>
-                </div>
                 <div class="nopdf">
-                  <div class="mstep7 noCanvasDecal w-100 mb-2 py-2">
-                    <label>Select frame</label>
-                    <select name="map_frame" class="w-100 py-2" style="background: lightgrey">
-                      <option value="0">Black Thick Frame</option>
-                      <option value="1">White Thick Frame</option>
+                  <div class="mstep7 noCanvasDecal w-100 mb-2 py-2" id="fameType">
+                    <label><strong>Select frame</strong></label>
+                    <select name="map_frame" class="w-100 py-2 rounded border" style="background: whitesmoke">
+                      <option value="Black Thick Frame" selected>Black Thick Frame</option>
+                      <option value="White Thick Frame">White Thick Frame</option>
                     </select></div>
 
                   <div class="mstep6 w-100 py-2">
-                    <label>Select size</label>
-                    <select name="map_size" class="w-100 py-2" style="background: lightgrey">
-                      <option value="0">12 x 16 in (30 x 40 cm)</option>
-                      <option value="1">16 x 24 in (40 x 60 cm)</option>
-                      <option value="2">24 x 36 in (60 x 90 cm)</option>
+                    <label for="map_size"><strong>Select size</strong></label>
+                    <select id="map_size" name="map_size" class="w-100 py-2 rounded border"
+                            style="background: whitesmoke">
+                      <option value="12 x 16 in (30 x 40 cm)" selected>12 x 16 in (30 x 40 cm)</option>
+                      <option value="16 x 24 in (40 x 60 cm)">16 x 24 in (40 x 60 cm)</option>
+                      <option value="24 x 36 in (60 x 90 cm)">24 x 36 in (60 x 90 cm)</option>
                     </select></div>
 
                   <div class="mstep5 priority_wrap">
                     <input type="checkbox" class="checkbox" id="priority"><label for="priority" class="hint2">
-                      <span class="priority">Priority processing (1 day) <strong>+20$</strong></span>
+                      <span class="priority small">Priority processing (1 day) <strong>+20$</strong></span>
                     </label>
                   </div>
+                  <br>
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <button class="btn btn-default">Previous</button>
+            <button class="btn btn-secondary" type="button">Previous</button>
             <button class="btn btn-success" type="submit">Next</button>
           </div>
         </form>
@@ -589,14 +390,23 @@
   //   }
   // });
 
+  function submitMap(ev) {
+    let d_a = $('#myform').serializeArray()
+    if (d_a.map(e => e.value).includes("")) {
+      ev.preventDefault()
+      console.log(d_a)
+      alert("Fill all the field please !")
+    }
+  }
 
-  var DATE = new Date("2022-08-25T04:00:00+0000");
-  var LAT = 95.525321;
-  var LONG = -455.815916;
+
+  let DATE = new Date("2022-08-25T04:00:00+0000");
+  let LAT = 95.525321;
+  let LONG = -455.815916;
   const FONT = "Raleway";
-  var place_name = 'Enter Place Name';
+  let place_name = 'Enter Place Name';
 
-  var config = {
+  let config = {
     container: "celestial-form",
     width: 1024,
     datapath: '<?php echo base_url('assets/front/d3-celestial-master/data/');?>',
@@ -604,16 +414,12 @@
     advanced: false,
     interactive: false,
     disableAnimations: true,
-
     zoomlevel: null,
     zoomextend: 5,
-
     projection: "airy",
     transform: "equatorial",
-
     follow: "zenith",
     geopos: [LAT, LONG],
-
     lines: {
       graticule: {show: false},
       equatorial: {show: false},
@@ -717,8 +523,8 @@
   });
 
   function setText() {
-    $('.text-content-input').val($('.text-content-input').val().toUpperCase());
-    $('.custom-card .texts .text-content').text($('.text-content-input').val().toUpperCase());
+    $('.text-content-input').val($('.text-content-input').val()?.toUpperCase());
+    $('.custom-card .texts .text-content').text($('.text-content-input').val()?.toUpperCase());
   }
 
   $(window).on('resize', function () {
@@ -809,8 +615,9 @@
   function initAutocomplete() {
 
     // Create the search box and link it to the UI element.
-    const input = document.getElementById("pac-input");
+    const input = document.getElementById("map-location");
     const searchBox = new google.maps.places.SearchBox(input);
+    console.log(searchBox)
 
 
     let markers = [];
@@ -876,13 +683,16 @@
   });
 
 </script>
-<script src="<?php echo base_url('assets/front/dom-to-image-master/src/'); ?>dom-to-image.js"/>
+<script src="<?php echo base_url('assets/front/dom-to-image-master/src/');?>dom-to-image.js" />
 <script>
   domtoimage.toPng(node)
 </script>
+
 <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeBtFJf_j0R6uyLMGz6jgXfmbdZ5BEuCM&callback=initAutocomplete&libraries=places&v=weekly"
-    defer></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCREYpGLVxgAM0EhQW7e7r7Gb83CNpQnkA&callback=initAutocomplete&libraries=places&v=weekly"
+    defer
+></script>
+
 <script type="text/javascript">
   $(".flat-picker").flatpickr({
     enableTime: true,
@@ -919,8 +729,6 @@
       });
   }
 
-</script>
-<script>
   html2canvas(document.querySelector('#cpimg')).then(canvas => {
     document.body.appendChild(canvas)
   })

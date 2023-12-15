@@ -1,0 +1,189 @@
+.colors label.selected {
+    border: 3px double white;
+}
+
+#stars-image {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+}
+
+#stars-image svg {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: 60%;
+}
+
+
+.custom-card {
+    background-color: #000000;
+    position: relative;
+    /* padding: 40px; */
+    text-align: center;
+    height: 100vh;
+    max-height: 650px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    box-shadow: 1px 1px 8px 8px #0000003b;
+    margin: 0 auto;
+    transition-duration: .5s;
+}
+
+.custom-card.portrait {
+    aspect-ratio: 193 / 258;
+}
+
+
+.custom-card.landscape {
+    aspect-ratio: 272 / 201;
+}
+
+.custom-card.square {
+    aspect-ratio: 1 / 1;
+}
+
+.custom-card.landscape #stars-image {
+    max-width: 70%;
+    max-height: 70%;
+}
+
+.custom-card .texts .text-content {
+    font-size: 50%;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.custom-card .texts .place-name {
+    font-size: 13px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+}
+
+.custom-card .texts .long-lat {
+    font-size: 13px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+}
+
+.custom-card .texts .date {
+    font-size: 13px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+}
+
+.custom-card .texts {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.custom-card::before {
+    position: absolute;
+    background: none;
+    content: "";
+    height: 95%;
+    width: 95%;
+    top: 2.5%;
+    left: 2.5%;
+    border: 2px solid #fff;
+}
+
+.custom-card .user-image {
+    width: 190px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.custom-card .user-image img {
+    width: 100%;
+}
+
+body {
+    min-height: 100vh;
+    height: auto;
+    background: url(../front/images/body-2.jpg) center;
+    background-size: cover;
+}
+
+.colors label {
+    height: 30px;
+    width: 30px;
+}
+
+.colors label input {
+    display: none;
+}
+
+.colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+.sizes {
+    display: flex;
+    gap: 7px;
+}
+
+.sizes .portrait {
+    height: 70px;
+    width: 50px;
+    border: 2px solid #5c5c5c;
+}
+
+.sizes input[type="radio"] {
+    display: none;
+}
+
+.sizes .landscape {
+    height: 50px;
+    width: 70px;
+    border: 2px solid #5c5c5c;
+}
+
+.sizes .square {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #5c5c5c;
+}
+
+.sizes label.selected {
+    border-color: #fff;
+}
+
+.form-control {
+    background: #ffffff12;
+    color: #fff;
+}
+
+.form-control:focus {
+    background: #ffffff12;
+    color: #fff;
+}
+
+#map {
+    height: 100%;
+}
+
+.pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+}
