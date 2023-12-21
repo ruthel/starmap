@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="assets/css/editor.css">
 <link rel="stylesheet" href="assets/css/main.css">
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 <div style="overflow:hidden;margin:0 auto;display: none;">
   <div id="celestial-map"></div>
 </div>
@@ -53,7 +54,7 @@
 
             <div id="stars-image"></div>
             <div class="user-image">
-              <img id="imagePreview" src="assets/front/images/img-placeholder.png">
+              <img id="imagePreview" src="assets/front/images/img-placeholder.png" style="display: none">
             </div>
             <div class="texts">
               <h1 class="text-content"></h1>
@@ -61,6 +62,7 @@
               <p class="date"></p>
               <p class="long-lat"><span class="long"></span>, <span class="lat"></span></p>
             </div>
+            <div id="qrcode" class="mt-3"></div>
           </div>
         </div>
       </div>
@@ -135,23 +137,19 @@
               <br>
             </div>
             <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="profile-tab">
-              <div>Add your message, title, and footnote to make it more personal</div>
-              <div class="mt-3">Enter your personal message</div>
-              <textarea id="map-message" rows="5" class="w-100 rounded border" name="map_custom_text"
-                        style="resize: none"></textarea>
+              <div>Add your title, and footnote to make it more personal</div>
               <label class="mt-3" for="map-title">Title</label>
               <input type="text" id="map-title" name="map_place" class="w-100 p-2 rounded border" placeholder="Title"/>
-              <label class="mt-3" for="map-subtitle">Subtitle</label>
-              <input type="text" id="map-subtitle" name="map_subtitle" class="w-100 p-2 rounded border"
-                     placeholder="Subtitle">
-              <div class="mt-3">Subtitle</div>
+              <div class="mt-3">Link</div>
               <div class="d-flex align-items-center">
                 <div class="p-2 border rounded-start" style="background: #CCCCCC; border-right: none">http://
                 </div>
                 <input type="text" class="flex-grow-1 p-2 border rounded-end"
+                       onchange="qrcode(event)"
                        style="background: whitesmoke;" id="map-intmess">
               </div>
-              <button class="small mt-1 border-1 rounded border" style="font-size: 12px">Enter any external link
+              <button class="small mt-1 border-1 rounded border" style="font-size: 12px" type="button">Enter any
+                external link
                 (instagram post, youtube video, etc
               </button>
               <br>
@@ -371,13 +369,22 @@
   </div>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script type="text/javascript">
-
+<script type="text/javascript">function qrcode(event) {
+    $('#qrcode').html('')
+    new QRCode(document.getElementById("qrcode"), {
+      text: event.target.value,
+      width: 42,
+      height: 42,
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
 
   const fileInput = document.getElementById('file-input');
   const imagePreview = document.getElementById('imagePreview');
 
   fileInput.addEventListener('change', function () {
+    if (fileInput.files[0])
+      imagePreview.style.display = 'initial'
     const selectedFile = fileInput.files[0];
 
     if (selectedFile) {

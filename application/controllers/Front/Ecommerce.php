@@ -15,14 +15,12 @@ class Ecommerce extends Front_controller
   {
     $content = array(
       'map_place' => $this->input->post('map_place'),
-      'map_subtitle' => $this->input->post('map_subtitle'),
       'map_style_poster' => $this->input->post('map_style_poster'),
       'map_size' => $this->input->post('map_size'),
       'map_color' => $this->input->post('color'),
       'map_diplay_address' => $this->input->post('map_diplay_address'),
       'map_frame' => $this->input->post('map_frame'),
       'map_date' => $this->input->post('map_date'),
-      'map_custom_text' => $this->input->post('map_custom_text'),
     );
     $data = array();
     $data['table'] = 'map';
