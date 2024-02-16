@@ -9,5 +9,11 @@
     <orderEntry type="library" name="html2canvas" level="application" />
     <orderEntry type="library" name="flatpickr" level="application" />
     <orderEntry type="library" name="qrcode" level="application" />
+    <orderEntry type="library" name="noprint" level="application" />
+    <orderEntry type="library" name="dom-to-image" level="application" />
+    <orderEntry type="library" name="download" level="application" />
+    <orderEntry type="library" name="html-to-image" level="application" />
+    <orderEntry type="library" name="lz-string" level="application" />
+    <orderEntry type="library" name="dexie" level="application" />
   </component>
 </module>

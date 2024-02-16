@@ -235,7 +235,7 @@ if ( ! function_exists('get_config'))
 	 * @param	array
 	 * @return	array
 	 */
-	function &get_config(Array $replace = array())
+	function get_config(Array $replace = array())
 	{
 		static $config;
 
@@ -297,7 +297,7 @@ if ( ! function_exists('config_item'))
 		if (empty($_config))
 		{
 			// references cannot be directly assigned to static variables, so we use an array
-			$_config[0] =& get_config();
+			$_config[0] = get_config();
 		}
 
 		return isset($_config[0][$item]) ? $_config[0][$item] : NULL;

@@ -12,13 +12,13 @@
     </div>
     <ul class="list-unstyled social_list">
       <li>
-        <a href="javascript:void(0)" class="social_icon"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://facebook.com" class="social_icon"><i class="fa-brands fa-facebook-f"></i></a>
       </li>
       <li>
-        <a href="javascript:void(0)" class="social_icon"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://linkedin.com" class="social_icon"><i class="fa-brands fa-linkedin-in"></i></a>
       </li>
       <li>
-        <a href="javascript:void(0)" class="social_icon"><i class="fa-brands fa-twitter"></i></a>
+        <a href="https://twitter.com" class="social_icon"><i class="fa-brands fa-twitter"></i></a>
       </li>
     </ul>
   </div>
@@ -27,9 +27,8 @@
 
 <script src="<?php echo base_url('assets/front/'); ?>js/popper.min.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>js/bootstrap.min.js"></script>
-<script src="<?php echo base_url('assets/front/'); ?>js/jquery-3.6.3.min.js"></script>
+<!--<script src="--><?php //echo base_url('assets/front/'); ?><!--js/jquery-3.6.3.min.js"></script>-->
 <script src="<?php echo base_url('assets/front/'); ?>js/owl.carousel.min.js"></script>
-<script src="<?php echo base_url('assets/front/'); ?>js/swiper-bundle.min.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>js/custom.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>js/scrolltrigger.min.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>js/aos.js"></script>

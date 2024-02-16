@@ -1,28 +1,49 @@
-<script type="text/javascript" src="<?php echo base_url('assets/front/d3-celestial-master/lib/'); ?>d3.min.js"></script>
-<script type="text/javascript"
-        src="<?php echo base_url('assets/front/d3-celestial-master/lib/'); ?>d3.geo.projection.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/front/d3-celestial-master/'); ?>celestial.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<link rel="stylesheet" href="<?php echo base_url('assets/front/d3-celestial-master/'); ?>celestial.css">
+<title>Starlight editor</title>
+<body>
+<script>
+  var noPrint = true;
+  var noScreenshot = true;
+  var noCopy = true;
+  var autoBlur = false
+</script>
+<script type="text/javascript" src="https://pdfanticopy.com/noprint.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>-->
+<script src="<?= base_url('assets/front/d3-celestial-master/lib/') ?>d3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+<script src="<?php echo base_url('assets/front/'); ?>js/bootstrap.min.js"></script>
+<script src="<?php echo base_url('assets/front/'); ?>js/popper.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<script src="<?= base_url('assets/front/d3-celestial-master/lib/') ?>d3.geo.projection.min.js"></script>
+<script src="<?= base_url('assets/front/d3-celestial-master/') ?>celestial.js"></script>
+
+<link rel="stylesheet" href="<?php echo base_url('assets/front/'); ?>css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="<?= base_url('assets/front/d3-celestial-master/') ?>celestial.css">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="assets/css/editor.css">
 <link rel="stylesheet" href="assets/css/main.css">
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 <div style="overflow:hidden;margin:0 auto;display: none;">
   <div id="celestial-map"></div>
 </div>
@@ -44,13 +65,13 @@
     </div>
   </div>
 </div>
-
-<section style="padding-bottom: 250px; background: white" class="pt-5">
-  <div class="container h-100">
-    <div class="row h-100 justify-content-center mx-auto">
-      <div class="col-sm-8">
-        <div id="custom-card-canvas">
-          <div class="custom-card portrait cpimg" id="custom-card-canvas2">
+<section style="padding-bottom: 250px; background: white" class="">
+  <div class="h-100 s-container pt-5">
+    <div style="display: flex; position: relative" id="editor-box" class="h-100 justify-content-center mx-auto">
+      <div id="main-map">
+        <div id="custom-card-canvas"
+             style="display: flex;align-items: center;justify-content: center;">
+          <div class="custom-card portrait cpimg" id="custom-card-canvas2" style="margin: 0">
 
             <div id="stars-image"></div>
             <div class="user-image">
@@ -61,16 +82,27 @@
               <p class="place-name">Place Name Here</p>
               <p class="date"></p>
               <p class="long-lat"><span class="long"></span>, <span class="lat"></span></p>
+              <p id="title-card" style="color: white; font-weight: bold; margin-top: 8px"></p>
             </div>
-            <div id="qrcode" class="mt-3"></div>
+            <div id="qrcode" class="mt-3" style="clear: left"></div>
+            <style>
+                #qrcode canvas {
+                    display: block !important;
+                    height: 64px;
+                }
+
+                #qrcode img {
+                    display: none !important;
+                }
+            </style>
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
-        <form method='POST' onsubmit="submitMap(event)" action='<?php echo base_url('ecommerce'); ?>' id="myform">
+      <div style="padding: 12px">
+        <form method='POST' onsubmit="submitMap(event)" action='<?= base_url('ecommerce') ?>' id="myform">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" onclick="tab('moment')">
-            <span class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+            <span class="nav-link active" id="moment-tab" data-toggle="tab" role="tab" aria-controls="home"
                   aria-selected="true">Moment</span>
             </li>
             <li class="nav-item" onclick="tab('text')">
@@ -79,12 +111,13 @@
             </li>
             <li class="nav-item" onclick="tab('contact')">
             <span class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                  aria-selected="false">Contact</span>
+                  aria-selected="false">Customize</span>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="moment" role="tabpanel" aria-labelledby="home-tab">
-              <div class="">Please, give us the details of your special moment.</div>
+              <br>
+              <div class=""><strong>Please, give us the details of your special moment.</strong></div>
               <div class="mt-3"><strong>Where were you looking at the sky?</strong></div>
               <input type="text" id="map-location" placeholder="Type in an address"
                      class="w-100 mt-1 py-2 rounded px-2 border"
@@ -92,68 +125,82 @@
                      name='map_diplay_address'>
               <div class="mt-3"><strong>When was your special moment?</strong></div>
               <div class="d-flex justify-content-between mt-2" style="visibility: visible;">
-                <div id="map_day">
-                  <select name="map_day" id="map_day" class="p-2 rounded border" style="background: whitesmoke">
-                    <?php for ($i = 1; $i <= 31; $i++) : ?>
-                      <option value="<?= $i ?>"><?= $i ?></option>
-                    <?php endfor; ?>
-                  </select>
+                <div>
+                  <div><strong>Day</strong></div>
+                  <div id="map_day">
+                    <select name="map_day" id="map_day" class="p-2 rounded border" style="background: whitesmoke">
+                      <?php for ($i = 1; $i <= 31; $i++) : ?>
+                        <option value="<?= $i ?>"><?= $i ?></option>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
                 </div>
-                <div id="map_month">
-                  <select name="map_month" id="map_month" class="p-2 rounded border" style="background: whitesmoke">
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10" selected>November</option>
-                    <option value="11">December</option>
-                  </select>
+                <div>
+                  <div><strong>Month</strong></div>
+                  <div id="map_month">
+                    <select name="map_month" id="map_month" class="p-2 rounded border" style="background: whitesmoke">
+                      <option value="0">January</option>
+                      <option value="1">February</option>
+                      <option value="2">March</option>
+                      <option value="3">April</option>
+                      <option value="4">May</option>
+                      <option value="5">June</option>
+                      <option value="6">July</option>
+                      <option value="7">August</option>
+                      <option value="8">September</option>
+                      <option value="9">October</option>
+                      <option value="10" selected>November</option>
+                      <option value="11">December</option>
+                    </select>
+                  </div>
                 </div>
-                <div id="map_year">
-                  <select name="map_year" id="map_year" class="p-2 rounded border" style="background: whitesmoke">
-                    <?php for ($i = 1900; $i <= 2053; $i++) : ?>
-                      <option value="<?= $i ?>"><?= $i ?></option>
-                    <?php endfor; ?>
-                  </select>
+                <div>
+                  <div><strong>Year</strong></div>
+                  <div id="map_year">
+                    <select name="map_year" id="map_year" class="p-2 rounded border" style="background: whitesmoke">
+                      <?php for ($i = 1900; $i <= 2053; $i++) : ?>
+                        <option <?= date("Y") == $i ? 'selected' : '' ?> value="<?= $i ?>"><?= $i ?></option>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
                 </div>
-                <div id="map_times">
-                  <select name="map_times" id="map_hour" class="p-2 rounded border" style="background: whitesmoke">
-                    <?php for ($i = 0; $i <= 23; $i++) : ?>
-                      <option value="<?= $i ?>"><?= $i ?>.00</option>
-                    <?php endfor; ?>
-                  </select>
+                <div>
+                  <div><strong>Time</strong></div>
+                  <div id="map_times">
+                    <select name="map_times" id="map_hour" class="p-2 rounded border" style="background: whitesmoke">
+                      <?php for ($i = 0; $i <= 23; $i++) : ?>
+                        <option value="<?= $i ?>"><?= $i ?>.00</option>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
                 </div>
               </div>
-
-              <div class="mt-3"><strong>Image to upload</strong></div>
-              <input type="file" id="file-input" class="w-100 mt-1 mb-3 py-2 rounded px-2 border"
-                     style="background: whitesmoke">
               <br>
+              <button class="btn btn-success" type="button" onclick="tab('text')">Next</button>
             </div>
             <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="profile-tab">
               <div>Add your title, and footnote to make it more personal</div>
               <label class="mt-3" for="map-title">Title</label>
-              <input type="text" id="map-title" name="map_place" class="w-100 p-2 rounded border" placeholder="Title"/>
+              <input type="text" id="map-title" name="map_place" class="w-100 p-2 rounded border" placeholder="Title"
+                     onkeyup="setTitle(event)"/>
               <div class="mt-3">Link</div>
               <div class="d-flex align-items-center">
                 <div class="p-2 border rounded-start" style="background: #CCCCCC; border-right: none">http://
                 </div>
                 <input type="text" class="flex-grow-1 p-2 border rounded-end"
-                       onchange="qrcode(event)"
+                       onkeyup="qrcode(event)"
                        style="background: whitesmoke;" id="map-intmess">
               </div>
               <button class="small mt-1 border-1 rounded border" style="font-size: 12px" type="button">Enter any
                 external link
                 (instagram post, youtube video, etc
               </button>
+              <div class="mt-3"><strong>Image to upload</strong></div>
+              <input type="file" id="file-input" accept="image/*" class="w-100 mt-1 mb-3 py-2 rounded px-2 border"
+                     style="background: whitesmoke">
               <br>
               <br>
+              <button class="btn btn-success" type="button" onclick="tab('contact')">Next</button>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <div class="step block3" style="display: block;">
@@ -292,45 +339,45 @@
                     </div>
                   </div>
                 </div>
-                <div class="mstep5 hides mb-3">
-                  <input type="checkbox" class="checkbox" id="map-pdf-only"><label for="map-pdf-only" class="hint2">
-                    <span class="map-pdf-only small">Digital version only <strong>(63% OFF)</strong></span>
-                  </label>
-                  <span class="mobile_hint" style="display: none;">You will receive a PDF file right after the purchase. If you wish to receive a printed/framed copy to your chosen address, please, unselect this checkbox</span>
-                </div>
-                <div class="mb-3 nopdf d-flex w-100 rounded-pill" style="background: whitesmoke">
-                  <div class="py-2 px-3 radio-type">
-                    <input value="0" name="typePoster" type="radio" id="poster" checked=""><label class="radio_label"
-                                                                                                  for="poster">Poster</label>
-                  </div>
-                  <div class="py-2 px-3 radio-type">
-                    <input value="1" name="typePoster" type="radio" id="canvas"><label class="radio_label" for="canvas">Canvas</label>
-                  </div>
-                </div>
+                <!--                <div class="mstep5 hides mb-3">-->
+                <!--                  <input type="checkbox" class="checkbox" id="map-pdf-only"><label for="map-pdf-only" class="hint2">-->
+                <!--                    <span class="map-pdf-only small">Digital version only <strong>(63% OFF)</strong></span>-->
+                <!--                  </label>-->
+                <!--                  <span class="mobile_hint" style="display: none;">You will receive a PDF file right after the purchase. If you wish to receive a printed/framed copy to your chosen address, please, unselect this checkbox</span>-->
+                <!--                </div>-->
+                <!--                <div class="mb-3 nopdf d-flex w-100 rounded-pill" style="background: whitesmoke">-->
+                <!--                  <div class="py-2 px-3 radio-type">-->
+                <!--                    <input value="0" name="typePoster" type="radio" id="poster" checked=""><label class="radio_label"-->
+                <!--                                                                                                  for="poster">Poster</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="py-2 px-3 radio-type">-->
+                <!--                    <input value="1" name="typePoster" type="radio" id="canvas"><label class="radio_label" for="canvas">Canvas</label>-->
+                <!--                  </div>-->
+                <!--                </div>-->
 
-                <div class="d-flex w-100 justify-content-between mb-1" style="color: black">
-                  <div class="radio">
-                    <input value="Without frame" name="map_style_poster" type="radio" id="without" checked
-                           onchange="function nam(){$('#fameType').hide()}">
-                    <label class="radio_label" for="without">&nbsp;Without frame</label>
-                  </div>
-                  <div class="radio">
-                    <input value="Frame" name="map_style_poster" type="radio" id="frame">
-                    <label class="radio_label" for="frame">&nbsp;Frame</label>
-                  </div>
-                  <div class="radio">
-                    <input value="Hanger" name="map_style_poster" type="radio" id="hanger"><label class="radio_label"
-                                                                                                  for="hanger">&nbsp;Hanger</label>
-                  </div>
-
-                </div>
+                <!--                <div class="d-flex w-100 justify-content-between mb-1" style="color: black">-->
+                <!--                  <div class="radio">-->
+                <!--                    <input value="Without frame" name="map_style_poster" type="radio" id="without" checked-->
+                <!--                           onchange="function nam(){$('#fameType').hide()}">-->
+                <!--                    <label class="radio_label" for="without">&nbsp;Without frame</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="radio">-->
+                <!--                    <input value="Frame" name="map_style_poster" type="radio" id="frame">-->
+                <!--                    <label class="radio_label" for="frame">&nbsp;Frame</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="radio">-->
+                <!--                    <input value="Hanger" name="map_style_poster" type="radio" id="hanger"><label class="radio_label"-->
+                <!--                                                                                                  for="hanger">&nbsp;Hanger</label>-->
+                <!--                  </div>-->
+                <!---->
+                <!--                </div>-->
                 <div class="nopdf">
-                  <div class="mstep7 noCanvasDecal w-100 mb-2 py-2" id="fameType">
-                    <label><strong>Select frame</strong></label>
-                    <select name="map_frame" class="w-100 py-2 rounded border" style="background: whitesmoke">
-                      <option value="Black Thick Frame" selected>Black Thick Frame</option>
-                      <option value="White Thick Frame">White Thick Frame</option>
-                    </select></div>
+                  <!--                  <div class="mstep7 noCanvasDecal w-100 mb-2 py-2" id="fameType">-->
+                  <!--                    <label><strong>Select frame</strong></label>-->
+                  <!--                    <select name="map_frame" class="w-100 py-2 rounded border" style="background: whitesmoke">-->
+                  <!--                      <option value="Black Thick Frame" selected>Black Thick Frame</option>-->
+                  <!--                      <option value="White Thick Frame">White Thick Frame</option>-->
+                  <!--                    </select></div>-->
 
                   <div class="mstep6 w-100 py-2">
                     <label for="map_size"><strong>Select size</strong></label>
@@ -341,19 +388,18 @@
                       <option value="24 x 36 in (60 x 90 cm)">24 x 36 in (60 x 90 cm)</option>
                     </select></div>
 
-                  <div class="mstep5 priority_wrap">
-                    <input type="checkbox" class="checkbox" id="priority"><label for="priority" class="hint2">
-                      <span class="priority small">Priority processing (1 day) <strong>+20$</strong></span>
-                    </label>
-                  </div>
+                  <!--                  <div class="mstep5 priority_wrap">-->
+                  <!--                    <input type="checkbox" class="checkbox" id="priority"><label for="priority" class="hint2">-->
+                  <!--                      <span class="priority small">Priority processing (1 day) <strong>+20$</strong></span>-->
+                  <!--                    </label>-->
+                  <!--                  </div>-->
                   <br>
                 </div>
               </div>
+              <div>
+                <button class="btn btn-success" type="submit" id="submitter">Submit</button>
+              </div>
             </div>
-          </div>
-          <div>
-            <button class="btn btn-secondary" type="button">Previous</button>
-            <button class="btn btn-success" type="submit">Next</button>
           </div>
         </form>
         <script>
@@ -368,49 +414,56 @@
     </div>
   </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script type="text/javascript">function qrcode(event) {
+<script type="text/javascript">
+  function qrcode(event) {
     $('#qrcode').html('')
     new QRCode(document.getElementById("qrcode"), {
       text: event.target.value,
-      width: 42,
-      height: 42,
+      width: 500,
+      height: 500,
       correctLevel: QRCode.CorrectLevel.H
     });
   }
 
   const fileInput = document.getElementById('file-input');
   const imagePreview = document.getElementById('imagePreview');
-
-  fileInput.addEventListener('change', function () {
+  fileInput.addEventListener('change', () => {
     if (fileInput.files[0])
       imagePreview.style.display = 'initial'
     const selectedFile = fileInput.files[0];
-
     if (selectedFile) {
       const reader = new FileReader();
-
-      reader.onload = function (event) {
-        imagePreview.src = event.target.result;
-      };
-
+      reader.onload = event => imagePreview.src = event.target.result;
       reader.readAsDataURL(selectedFile);
     } else {
-      // Handle the case where no file is selected or the selected file is not an image.
       imagePreview.src = "";
+      imagePreview.style.display = 'none'
     }
   });
 
+  let generatedMap = false
+
   function submitMap(ev) {
-    let d_a = $('#myform').serializeArray()
-    if (d_a.map(e => e.value).includes("")) {
+    if (!generatedMap) {
       ev.preventDefault()
-      alert("Fill all the field please !")
+      $("#submitter").prop('disabled', true);
+      $('#submitter').text('Submitting ...')
+      setTimeout(() => {
+        generateImg()
+      }, 500)
+    } else {
+      $("#submitter").prop('disabled', false);
+      $('#submitter').text('Submit')
+      let d_a = $('#myform').serializeArray()
+      if (d_a.map(e => e.value).includes("")) {
+        ev.preventDefault()
+        alert("Fill all the field please !")
+      }
     }
   }
 
 
-  let DATE = new Date();
+  let DATE = new Date(new Date().getFullYear(), 10, 1);
   let LAT = 95.525321;
   let LONG = -455.815916;
   const FONT = "Raleway";
@@ -419,7 +472,7 @@
   let config = {
     container: "celestial-form",
     width: 1024,
-    datapath: '<?php echo base_url('assets/front/d3-celestial-master/data/');?>',
+    datapath: '<?= base_url('assets/front/d3-celestial-master/data/')?>',
     form: false,
     advanced: false,
     interactive: false,
@@ -506,6 +559,10 @@
   Celestial.skyview({date: DATE});
   map_draw();
 
+  function setTitle(event) {
+    $('#title-card').html(event.target.value)
+  }
+
   $('#map_month').val(DATE.getMonth())
   document.getElementById('map_month').onchange = (e) => {
     DATE.setMonth(e.target.value)
@@ -538,18 +595,47 @@
     map_draw();
   }
 
+  const db = new Dexie('StarMap');
+  db.version(1).stores({images: '++id, key, value'});
+
+  function generateImg() {
+    html2canvas(document.querySelector("#custom-card-canvas2"), {
+      scale: 10,
+      allowTaint: true,
+      useCORS: true
+    }).then(canvas => {
+
+      db.images.clear()
+
+      let data_04 = canvas.toDataURL('image/jpg', .4)
+      let data_10 = canvas.toDataURL('image/jpg', 1)
+
+      db.images.bulkPut([
+        {key: 'image', value: data_10},
+        {key: 'image-thumbnail', value: data_04}
+      ]).then(ok => {
+        generatedMap = true
+        $('#myform').submit()
+      })
+
+
+      // localStorage.setItem("image-thumbnail", LZString.compressToUTF16(data_04))
+      // localStorage.setItem("image", LZString.compressToUTF16(data_10))
+
+
+    });
+  }
+
   function map_draw() {
     Celestial.exportSVG((val) => {
-      // console.log(val);
       $('#stars-image').html(val);
     });
 
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date_text = DATE.getDate() + ' ' + month[DATE.getMonth()] + ' ' + DATE.getFullYear();
 
-    var date_text = DATE.getDate() + ' ' + month[DATE.getMonth()] + ' ' + DATE.getFullYear();
-
-    $('.custom-card .texts .long-lat .lat').html(LAT + ' °E');
-    $('.custom-card .texts .long-lat .long').html(LONG + ' °N');
+    $('.custom-card .texts .long-lat .lat').html(parseFloat(LAT).toFixed(4) + ' E');
+    $('.custom-card .texts .long-lat .long').html(parseFloat(LAT).toFixed(4) + ' N');
     $('.custom-card .texts .date').html(date_text);
     $('.custom-card .texts .place-name').html(place_name);
     setfont_size();
@@ -557,9 +643,7 @@
   }
 
 
-  $('.tent-input').on('keyup', function () {
-    setText();
-  });
+  $('.tent-input').on('keyup', () => setText());
 
   function setText() {
     $('.text-content-input').val($('.text-content-input').val()?.toUpperCase());
@@ -582,73 +666,12 @@
     $('.custom-card .texts .place-name').css('font-size', date_font_size + 'px');
   }
 
-
-  const saveData = (fileName, data) => {
-    var a = document.createElement("a");
-    document.body.appendChild(a);
-    a.style = "display: none";
-
-    const blob = new Blob([data], {type: "octet/stream"});
-    const url = window.URL.createObjectURL(blob);
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
-  };
-
   const btn = document.getElementById("btn_download");
   btn.addEventListener("click", () => {
     Celestial.exportSVG((val) => {
-      //saveData("map.svg", val);
       $('#stars-image').html(val);
     });
   });
-
-
-  colors();
-  sizes();
-  $('.colors input[name=color]').on('change', function () {
-    colors();
-  });
-
-
-  $('.sizes input[name=size]').on('change', function () {
-    sizes();
-  });
-
-  function colors() {
-
-    $('.colors label').removeClass('selected');
-    $('.colors input[name=color]').each(function () {
-      var color = $(this).val();
-      $(this).parents('label').css('background-color', color);
-      if (color == $('.colors input[name=color]:checked').val()) {
-        $(this).parents('label').addClass('selected');
-        $('.custom-card').css({
-          'background-color': $('.colors input[name=color]:checked').val()
-        });
-
-        config.background.fill = $('.colors input[name=color]:checked').val();
-        Celestial.apply(config);
-        map_draw();
-      }
-    });
-  }
-
-
-  function sizes() {
-    $('.sizes label').removeClass('selected');
-    $('.custom-card').removeClass('portrait').removeClass('landscape').removeClass('square')
-    $('.sizes input[name=size]').each(function () {
-      let size = $(this).val();
-      if (size === $('.sizes input[name=size]:checked').val()) {
-        $(this).parents('label').addClass('selected');
-        $('.custom-card').addClass(size);
-      }
-    });
-  }
-
 </script>
 <script type="text/javascript">
   function initAutocomplete() {
@@ -688,7 +711,7 @@
         LONG = place.geometry.location.lng();
 
         var i = 0;
-        timeout = setInterval(function () {
+        timeout = setInterval(() => {
           i++;
           Celestial.location([LAT, LONG]);
           Celestial.redraw();
@@ -699,7 +722,8 @@
           }
         }, 500);
 
-        $('.address-text').val(place.formatted_address).change();
+        place_name = place.formatted_address
+        $('.custom-card .texts .place-name').text(place_name);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -715,22 +739,46 @@
 
   window.initAutocomplete = initAutocomplete;
 
-  $('#map-location').on('change keyup', function () {
-    place_name = $(this).val();
-    $('.custom-card .texts .place-name').text(place_name);
+
+  document.addEventListener("keyup", function (e) {
+    var keyCode = e.keyCode ? e.keyCode : e.which;
+    if (keyCode == 44) {
+      document.body.style.display = 'none'
+      stopPrntScr();
+    }
+    if (e.key == 'PrintScreen') {
+      e.preventDefault()
+      document.body.style.display = 'none'
+      navigator.clipboard.writeText('');
+    }
   });
 
-</script>
-<script src="<?php echo base_url('assets/front/dom-to-image-master/src/'); ?>dom-to-image.js"/>
-<script>
-  domtoimage.toPng(node)
-</script>
+  function stopPrntScr() {
+    var inpFld = document.createElement("input");
+    inpFld.setAttribute("value", ".");
+    inpFld.setAttribute("width", "0");
+    inpFld.style.height = "0px";
+    inpFld.style.width = "0px";
+    inpFld.style.border = "0px";
+    document.body.appendChild(inpFld);
+    inpFld.select();
+    document.execCommand("copy");
+    inpFld.remove(inpFld);
+  }
 
+  function AccessClipboardData() {
+    try {
+      window.clipboardData.setData('text', "Access Restricted");
+    } catch (err) {
+    }
+  }
+
+  setInterval("AccessClipboardData()", 300);
+
+</script>
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCREYpGLVxgAM0EhQW7e7r7Gb83CNpQnkA&callback=initAutocomplete&libraries=places&v=weekly"
-    defer
-></script>
-
+    defer></script>
 <script type="text/javascript">
   $(".flat-picker").flatpickr({
     enableTime: true,
@@ -758,21 +806,10 @@
   function filter(node) {
     return (node.tagName !== 'i');
   }
-
-
-  function getSVG() {
-    domtoimage.toSvg(document.getElementById('custom-card-canvas'), {filter: filter})
-      .then(function (dataUrl) {
-        // console.log(dataUrl);
-      });
-  }
-
-  html2canvas(document.querySelector('#cpimg')).then(canvas => {
-    document.body.appendChild(canvas)
-  })
 </script>
 <?php
 if ($this->session->userdata('map_id') == true) {
   $this->session->unset_userdata('map_id');
 }
 ?>
+</body>

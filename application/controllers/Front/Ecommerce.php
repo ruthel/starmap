@@ -15,11 +15,11 @@ class Ecommerce extends Front_controller
   {
     $content = array(
       'map_place' => $this->input->post('map_place'),
-      'map_style_poster' => $this->input->post('map_style_poster'),
+//      'map_style_poster' => $this->input->post('map_style_poster'),
       'map_size' => $this->input->post('map_size'),
-      'map_color' => $this->input->post('color'),
+//      'map_color' => $this->input->post('color'),
       'map_diplay_address' => $this->input->post('map_diplay_address'),
-      'map_frame' => $this->input->post('map_frame'),
+//      'map_frame' => $this->input->post('map_frame'),
       'map_date' => $this->input->post('map_date'),
     );
     $data = array();
@@ -58,7 +58,7 @@ class Ecommerce extends Front_controller
 
     $data = array();
     $data['table'] = 'map';
-    $data['where'] = array('map_id' => $id);
+    $data['where'] = array('map_id' => $this->input->post('map_id'));
     $data['output_type'] = 'row';
     $product = $this->general->get($data);
 
@@ -70,7 +70,7 @@ class Ecommerce extends Front_controller
     $this->paypal_lib->add_field('item_name', $product->map_place);
     $this->paypal_lib->add_field('custom', $id);
     $this->paypal_lib->add_field('item_number', $product->map_id);
-    $this->paypal_lib->add_field('amount', '500');
+    $this->paypal_lib->add_field('amount', '02');
 
     // Render paypal form
     $this->paypal_lib->paypal_auto_form();

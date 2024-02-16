@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Starlight Contact</title>
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/contact.css">
 </head>
@@ -26,7 +26,8 @@
 </div>
 <div style="background: white; height: 100vh; padding-top: 24px">
   <div class="s-container">
-    <form action="" class="" style="display: grid; gap: 24px; grid-template-columns: repeat(3,3fr)">
+    <form action="senderemail/contactus" class="" method="post"
+          style="display: grid; gap: 24px; grid-template-columns: repeat(3,3fr)">
       <div
           style="display: grid; grid-column-start: 1; gap: 28px;grid-column-end: 3; grid-template-columns: repeat(2,1fr)">
         <div>
@@ -47,7 +48,7 @@
         </div>
         <div style="grid-column-start: 1; grid-column-end: 3; width: 100%">
           <label for="subject">Your Message</label>
-          <textarea style="min-height: 250px; resize: none" class="input"></textarea>
+          <textarea style="min-height: 250px; resize: none" class="input" name="message"></textarea>
         </div>
       </div>
       <div>
@@ -67,7 +68,9 @@
         </div>
         <hr>
       </div>
-      <button style="width: 100%; padding: 12px 0; grid-column-start: 1; grid-column-end: 4">SEND MESSAGE</button>
+      <button style="width: 100%; max-width: 200px; padding: 12px 0; grid-column-start: 1; grid-column-end: 4">SEND
+        MESSAGE
+      </button>
     </form>
   </div>
 </div>

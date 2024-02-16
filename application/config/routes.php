@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -48,17 +48,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method 
 */
-$link = explode('/',(isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-if($link[ENV_COUNT] == 'admin'){   
-  $this->set_directory( "Admin" );
+$link = explode('/', (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+if (isset($link[ENV_COUNT]) && $link[ENV_COUNT] == 'admin') {
+  $this->set_directory("Admin");
   $request = $this->uri->segment(2);
-  if(!empty($request) && strpos($request,'-')){ 
-    $route['admin/'.$request.''] = str_replace('-','_',$request);
-    $route['admin/'.$request.'/(:any)'] = str_replace('-','_',$request).'/$1';
-    $route['admin/'.$request.'/(:any)/(:any)'] = str_replace('-','_',$request).'/$1/$2';
+  if (!empty($request) && strpos($request, '-')) {
+    $route['admin/' . $request . ''] = str_replace('-', '_', $request);
+    $route['admin/' . $request . '/(:any)'] = str_replace('-', '_', $request) . '/$1';
+    $route['admin/' . $request . '/(:any)/(:any)'] = str_replace('-', '_', $request) . '/$1/$2';
   }
-  $route['admin/logout'] = 'login/logout'; 
-  $route['admin/forgot-password'] = 'login/forgot_password'; 
+  $route['admin/logout'] = 'login/logout';
+  $route['admin/forgot-password'] = 'login/forgot_password';
   $route['admin/reset-password/(:any)'] = 'login/reset_password/$1';
   $route['admin/editfile/(:any)'] = 'editfile/index/$1';
   $route['admin/operation/(:any)'] = 'operation/index/$1';
@@ -68,18 +68,19 @@ if($link[ENV_COUNT] == 'admin'){
   $route['admin/product/(:any)'] = 'product/index/$1';
   $route['admin/product/form/(:any)/(:any)/(:any)'] = 'product/form/$1/$2/$3';
 
-  $route['admin/(:any)'] = '$1'; 
-  $route['admin/(:any)/(:any)'] = '$1/$2'; 
-  $route['admin/(:any)/(:any)/(:any)'] = '$1/$2/$3'; 
-  $route['admin/(:any)/(:any)/(:any)/(:any)'] = '$1/$2/$3/$4'; 
+  $route['admin/(:any)'] = '$1';
+  $route['admin/(:any)/(:any)'] = '$1/$2';
+  $route['admin/(:any)/(:any)/(:any)'] = '$1/$2/$3';
+  $route['admin/(:any)/(:any)/(:any)/(:any)'] = '$1/$2/$3/$4';
   $route['admin'] = 'dashboard';
   $route['default_controller'] = 'front';
   $route['404_override'] = '';
   $route['translate_uri_dashes'] = FALSE;
-}else{ 
-  $this->set_directory( "Front" );  
+} else {
+  $this->set_directory("Front");
   $route['default_controller'] = 'main';
   $route['thank-you'] = 'main/thankyou';
+  $route['email'] = 'Sendingemail_Controller/send_mail';
 
   $route['404_override'] = 'error_404';
   $route['translate_uri_dashes'] = FALSE;

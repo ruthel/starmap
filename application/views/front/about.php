@@ -69,33 +69,30 @@
           about the stars, we invite you to contact Starlight Maps today.
         </p>
       </section>
-      <section class="our-team">
-        <h2>Our Team</h2>
-        <div style="display: grid; grid-template-columns: 1fr auto; width: 100%">
-          <img src="assets/media/img/ourteam.png" style="flex: 1" alt="">
-          <ul>
-            <li><img src="images/team-member-1.jpg" alt="Team member 1">
-              <h3>John Doe</h3>
-              <p>Web Developer</p>
-            </li>
-            <li><img src="images/team-member-2.jpg" alt="Team member 2">
-              <h3>Jane Doe</h3>
-              <p>Web Designer</p>
-            </li>
-            <li><img src="images/team-member-3.jpg" alt="Team member 3">
-              <h3>Bob Smith</h3>
-              <p>Project Manager</p>
-            </li>
-          </ul>
-        </div>
-      </section>
       <section class="our-values">
         <h2 style="margin: 4px 0">Our Values</h2>
-        <ul style="margin: 4px 0">
-          <li>Quality</li>
-          <li>Innovation</li>
-          <li>Customer Satisfaction</li>
-        </ul>
+        <h3>Quality</h3>
+        <div>
+          At Starlight Maps, quality is the bedrock of our commitment to you. We take pride in delivering
+          products and services that epitomize excellence. From the precision of our astronomers to the
+          meticulous craftsmanship of our custom star maps, we ensure that every detail reflects the
+          highest standards of quality
+        </div>
+        <h3>Innovation</h3>
+        <div>
+          Innovation is the heartbeat of our pursuit at Starlight Maps. We constantly strive to redefine
+          what's possible, blending state-of-the-art technology with a passion for storytelling. Our
+          commitment to innovation goes beyond creating star maps; it extends to offering unique
+          experiences and services that allow you to engage with the cosmos in unprecedented ways.
+        </div>
+        <h3>Customer Satisfaction</h3>
+        <div>
+          Your satisfaction is our paramount goal at Starlight Maps. We understand that each customer's
+          journey is unique, and we are dedicated to ensuring your experience with us exceeds
+          expectations. From personalized consultations to the final delivery of your custom star map, we
+          prioritize your satisfaction, aiming to make your interaction with Starlight Maps not just a
+          transaction but a memorable and delightful journey.
+        </div>
       </section>
       <section class="contact-us">
         <h2>Contact Us</h2>

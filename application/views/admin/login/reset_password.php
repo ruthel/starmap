@@ -37,7 +37,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page" style="background-image: url(<?php echo base_url();?>assets/admin/img/banner.png);">
+<body class="hold-transition login-page" style="background-image: url(<?php echo base_url();?>assets/admin/img/banner.webp);">
 <?php if($this->session->flashdata('success')):?>
 <script>alert_success("<?php echo $this->session->flashdata('success')?>");</script>
 <?php endif;?>
