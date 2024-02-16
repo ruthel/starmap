@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{@popperjs/core, dexie, dom-to-image, download, flatpickr, html-to-image, html2canvas, jquery-3.6.3, lz-string, noprint, qrcode}" />
+    <file url="PROJECT" libraries="{dexie}" />
   </component>
 </project>

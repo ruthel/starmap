@@ -40,16 +40,22 @@
             <img src="assets/media/checkout.png" alt="" height="280" id="map">
             <script>
 
-              new Dexie('StarMap').open().then(r => {
-                const db = r
-                console.log(r)
-                db.images.get({'key': "image-thumbnail"}).then(res => {
-                  console.log(res)
-                })
-              });
 
+                const db = new Dexie('StarMap');
+                db.version(1).stores({images: '++id, key, value'});
 
-              document.getElementById('map').src = LZString.decompressFromUTF16(localStorage.getItem("image-thumbnail"))
+                // Open the database
+                db.open().catch(function (e) {
+                    console.error("Open failed: " + e);
+                });
+
+                // Retrieve data from the table
+                db.images.where('key').equals('image-thumbnail').each(function(record) {
+                    document.getElementById('map').src = record.value
+                }).catch(function (error) {
+                    console.error("Error retrieving records: " + error);
+                });
+
               document.addEventListener('contextmenu', event => {
                 event.preventDefault();
               });

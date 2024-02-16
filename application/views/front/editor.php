@@ -618,11 +618,6 @@
         $('#myform').submit()
       })
 
-
-      // localStorage.setItem("image-thumbnail", LZString.compressToUTF16(data_04))
-      // localStorage.setItem("image", LZString.compressToUTF16(data_10))
-
-
     });
   }
 
