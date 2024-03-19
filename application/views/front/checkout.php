@@ -37,7 +37,7 @@
       <tr>
         <td>
           <div style="display: flex;">
-            <img src="assets/media/checkout.png" alt="" height="280" id="map">
+            <img src="assets/media/checkout.png" alt="" height="280" id="map" style="filter: blur(.3px)">
             <script>
 
 
@@ -50,7 +50,7 @@
                 });
 
                 // Retrieve data from the table
-                db.images.where('key').equals('image-thumbnail').each(function(record) {
+                db.images.where('key').equals('image').each(function(record) {
                     document.getElementById('map').src = record.value
                 }).catch(function (error) {
                     console.error("Error retrieving records: " + error);

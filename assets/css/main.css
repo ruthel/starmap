@@ -41,7 +41,7 @@ html, body {
     }
 
     .menu a {
-        padding: 24px 4px !important;
+        padding: 18px 4px !important;
     }
 }
 
@@ -56,7 +56,30 @@ html, body {
     position: relative;
     border-bottom: 4px solid transparent;
     display: inline-block;
-    padding: 24px 32px;
+    padding: 18px 32px;
+}
+
+.menu_footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu_footer a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding: 12px;
+}
+
+#footer{
+    padding : 16px 0;
+}
+#footer .title{
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 8px !important;
 }
 
 .menu a::before {

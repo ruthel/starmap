@@ -13,6 +13,7 @@ textarea {
 body {
     min-height: 100vh;
     height: auto;
+    overflow-x: hidden;
     background: url(../front/images/body-2.jpg) center;
     background-size: cover;
 }

@@ -1,0 +1,63 @@
+.input {
+    background: #F4F4F4;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+textarea {
+    padding: 8px;
+}
+
+body {
+    min-height: 100vh;
+    height: auto;
+    overflow-x: hidden;
+    background: url(../front/images/body-2.jpg) center;
+    background-size: cover;
+}
+
+h4 {
+    position: relative;
+    margin: 24px 0 !important;
+}
+
+h4[aria-expanded="true"] div::after{
+    visibility: hidden;
+}
+
+h4 div{
+    left: -40px;
+    top: -5px;
+    position: absolute;
+    background: #86BAEA;
+    border-radius: 2px;
+    width: 28px;
+    height: 28px;
+}
+
+h4 div::before{
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 4px;
+    background: white;
+    left: 0;
+    margin: auto;
+    right: 0;
+    top: calc(50% - 2px);
+}
+
+h4 div::after{
+    content: '';
+    position: absolute;
+    visibility: visible;
+    width: 4px;
+    height: 70%;
+    background: white;
+    left: calc(50% - 2px);
+    margin: auto;
+    top: 0;
+    bottom: 0;
+}

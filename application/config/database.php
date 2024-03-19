@@ -79,7 +79,7 @@ if(in_array($_SERVER['REMOTE_ADDR'],array('127.0.0.1','::1')))
 		'dsn'	=> '',
 		'hostname' => 'localhost',
 		'username' => 'root',
-		'port' => '3307',
+		'port' => '3306',
 		'password' => '',
 		'database' => 'starlight',
 		'dbdriver' => 'mysqli',

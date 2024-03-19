@@ -16,7 +16,7 @@
     <orderEntry type="library" name="download" level="application" />
     <orderEntry type="library" name="html-to-image" level="application" />
     <orderEntry type="library" name="lz-string" level="application" />
-    <orderEntry type="library" name="dexie" level="application" />
+    <orderEntry type="library" name="download" level="application" />
     <orderEntry type="library" name="dexie" level="application" />
   </component>
 </module>

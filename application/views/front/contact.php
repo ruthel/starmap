@@ -8,21 +8,7 @@
 </head>
 <body>
 <div class="s-container">
-  <div class="nav">
-    <div id="title-bloc">
-      <div style="margin-right: 8px">
-        <img src="assets/media/img/logo.png" alt="" style="width: 32px; margin-top: 6px">
-      </div>
-      <h1 id="title"><a href="index.php">Starlight Map</a></h1>
-    </div>
-    <div>
-      <ul class="menu">
-        <li><a href="./editor">Create a star map</a></li>
-        <li><a href="./about">About Us</a></li>
-        <li><a href="./contact" class="activated">Contact</a></li>
-      </ul>
-    </div>
-  </div>
+  <?php include('inc/menu.php')?>
 </div>
 <div style="background: white; height: 100vh; padding-top: 24px">
   <div class="s-container">

@@ -81,7 +81,6 @@ if (isset($link[ENV_COUNT]) && $link[ENV_COUNT] == 'admin') {
   $route['default_controller'] = 'main';
   $route['thank-you'] = 'main/thankyou';
   $route['email'] = 'Sendingemail_Controller/send_mail';
-
   $route['404_override'] = 'error_404';
   $route['translate_uri_dashes'] = FALSE;
 }

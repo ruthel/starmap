@@ -17,18 +17,15 @@
 
 
 .custom-card {
-    background-color: #000000;
     position: relative;
     /* padding: 40px; */
     text-align: center;
     height: 100vh;
-    max-height: 650px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     align-content: center;
-    box-shadow: 1px 1px 2px .1px #0000003b;
     margin: 0 auto;
     transition-duration: .5s;
 }
@@ -84,15 +81,27 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.custom-card::after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-image: url('../media/img/WoodenFrame.png');
+    background-size: cover;
+    left: 0;
+    z-index: 2;
+}
+
 .custom-card::before {
     position: absolute;
-    background: none;
+    background: #000;
     content: "";
-    height: 95%;
-    width: 95%;
-    top: 2.5%;
-    left: 2.5%;
-    border: 2px solid #fff;
+    height: 89%;
+    width: 85%;
+    top: 6.5%;
+    left: 7.5%;
+    z-index: 1;
 }
 
 .custom-card .user-image {
@@ -112,10 +121,7 @@
 body {
     min-height: 100vh;
     height: auto;
-    background-size: cover;
-}
-
-.nav.mb-0 {
+    overflow-x: hidden;
     background: url(../front/images/body-2.jpg) center;
     background-size: cover;
 }
@@ -142,11 +148,15 @@ body {
     }
 
     .custom-card {
-        max-height: 800px !important;
+        /*max-height: 800px !important;*/
     }
 }
 
 #main-map {
+    background-image: url("../media/img/gray-sofa-brown-living-room-with-copy-space.jpg");
+    background-position: 50% 0;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
     flex: 1;
 }
 

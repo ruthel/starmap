@@ -6,11 +6,8 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/home.css">
   <script src="<?php echo base_url('assets/front/'); ?>js/jquery-3.6.3.min.js"></script>
-
-  <!--  <link rel="stylesheet" href="assets/style.css">-->
-  <!--  <link rel="stylesheet" href="assets/script.js">-->
+  <script src="https://unpkg.com/scrollreveal@4"></script> </head>
   <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-  <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">-->
   <script defer src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
   <script src="<?php echo base_url('assets/front/'); ?>js/swiper-bundle.min.js"></script>
   <!--  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>-->
@@ -38,9 +35,10 @@
         </div>
         <div>
           <ul class="menu">
-            <li><a href="./editor">Create a star map</a></li>
+            <li><a href="./editor">Create Star Map</a></li>
             <li><a href="./about">About Us</a></li>
             <li><a href="./contact">Contact</a></li>
+            <li><a href="./faq">FAQ</a></li>
           </ul>
         </div>
       </div>
@@ -105,19 +103,37 @@
         <div class="main-carousel"
              data-flickity='{ "cellAlign": "left", "contain": true, "groupCells": true, "wrapAround": true }'
              style="padding: 64px 0;">
-          <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001537/pmap_1_gwoxnx.webp" alt="" class="carousel">
-          <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_2_sdgm96.webp" alt="" class="carousel">
-          <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_3_rexi7c.webp" alt="" class="carousel">
-          <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_4_rxs4fo.webp" alt="" class="carousel">
-          <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_5_yaljai.webp" alt="" class="carousel">
-          <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001537/pmap_1_gwoxnx.webp" alt="" class="carousel">
+          <img
+              onclick="window.location.href = './editor'"
+              src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001537/pmap_1_gwoxnx.webp" alt=""
+              class="carousel">
+          <img
+              onclick="window.location.href = './editor'"
+              src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_2_sdgm96.webp" alt=""
+              class="carousel">
+          <img
+              onclick="window.location.href = './editor'"
+              src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_3_rexi7c.webp" alt=""
+              class="carousel">
+          <img
+              onclick="window.location.href = './editor'"
+              src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_4_rxs4fo.webp" alt=""
+              class="carousel">
+          <img
+              onclick="window.location.href = './editor'"
+              src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001536/pmap_5_yaljai.webp" alt=""
+              class="carousel">
+          <img
+              onclick="window.location.href = './editor'"
+              src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1708001537/pmap_1_gwoxnx.webp" alt=""
+              class="carousel">
         </div>
       </div>
     </div>
   </div>
   <div class="bg-gray">
     <div class="s-container">
-      <div style="text-align: center; color: #000" id="looking_for_gift">
+      <div style="text-align: center; color: #000" id="looking_for_gift" class="animated-1">
         <div>
           <img src="assets/media/gift_icon.png" alt="" width="39" height="43">
         </div>
@@ -151,25 +167,41 @@
         </div>
       </div>
     </div>
-    <div style="padding: 64px 0">
+    <div style="padding: 64px 0" class="animated-element">
       <h1 class="title-sub">Some Of The Happy Star Map Owners</h1>
       <div class="grid-map">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912532/landing_block4_img1_yqna07.webp"
-             alt="owner" loading="lazy">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912617/landing_block4_img2_litvpg.webp"
-             alt="owner" loading="lazy">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912661/landing_block4_img3_folc0w.webp"
-             alt="owner" loading="lazy">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912806/landing_block4_img4_vyxago.webp"
-             alt="owner" loading="lazy">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912941/landing_block4_img5_odvvwr.webp"
-             alt="owner" loading="lazy">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912996/landing_block4_img6_zyrsk5.webp"
-             alt="owner" loading="lazy">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707913075/landing_block4_img7_hgbxa1.webp"
-             alt="owner" loading="lazy">
-        <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707913118/landing_block4_img8_xcpvdq.webp"
-             alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912532/landing_block4_img1_yqna07.webp"
+            alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912617/landing_block4_img2_litvpg.webp"
+            alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912661/landing_block4_img3_folc0w.webp"
+            alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912806/landing_block4_img4_vyxago.webp"
+            alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912941/landing_block4_img5_odvvwr.webp"
+            alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707912996/landing_block4_img6_zyrsk5.webp"
+            alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707913075/landing_block4_img7_hgbxa1.webp"
+            alt="owner" loading="lazy">
+        <img
+            onclick="window.location.href='editor'"
+            src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707913118/landing_block4_img8_xcpvdq.webp"
+            alt="owner" loading="lazy">
       </div>
     </div>
     <div class="bg">
@@ -235,7 +267,7 @@
         </div>
       </div>
     </div>
-    <div style="padding: 64px 0" id="Attach_photos">
+    <div style="padding: 64px 0" id="Attach_photos" class="animated-2">
       <img src="assets/media/img_10.png" alt="" height="84" width="93">
       <h1 class="title-sub" style="margin-top: 0 !important;">Attach photos, videos or any other link <br>
         with the help of QR Code feature</h1>
@@ -278,7 +310,7 @@
         </div>
         <div>
           <div class="grid-map-4">
-            <div class="occasion">
+            <div class="occasion" onclick="window.location.href='editor'">
               <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707914178/landing_block8_img1_aum8ef.webp"
                    alt="" style="width: 100%" height="148" width="199" loading="lazy">
               <h3 style="margin: 0">Birthday Gift</h3>
@@ -287,7 +319,7 @@
                 makes a great gift.
               </div>
             </div>
-            <div class="occasion">
+            <div class="occasion" onclick="window.location.href='editor'">
               <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707914248/landing_block8_img2_oriimo.webp"
                    alt="" style="width: 100%" height="148" width="201" loading="lazy">
               <h3 style="margin: 0">Anniversary Gift</h3>
@@ -296,7 +328,7 @@
                 when she said “Yes.”
               </div>
             </div>
-            <div class="occasion">
+            <div class="occasion" onclick="window.location.href='editor'">
               <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707914264/landing_block8_img3_sk1c2d.webp"
                    alt="" style="width: 100%" height="148" width="201" loading="lazy">
               <h3 style="margin: 0">Housewarming Gift</h3>
@@ -305,7 +337,7 @@
                 that fits any interior.
               </div>
             </div>
-            <div class="occasion">
+            <div class="occasion" onclick="window.location.href='editor'">
               <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707914277/landing_block8_img4_fhmnty.webp"
                    alt="" style="width: 100%" height="148" width="200" loading="lazy">
               <h3 style="margin: 0">Valentine's Day Gift</h3>
@@ -313,7 +345,7 @@
                 for St. Valentine’s Day present.
               </div>
             </div>
-            <div class="occasion">
+            <div class="occasion" onclick="window.location.href='editor'">
               <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707914281/landing_block8_img5_uwqwll.webp"
                    alt="" style="width: 100%" height="148" width="200" loading="lazy">
               <h3 style="margin: 0">Christmas Gift</h3>
@@ -322,7 +354,7 @@
                 holiday season.
               </div>
             </div>
-            <div class="occasion">
+            <div class="occasion" onclick="window.location.href='editor'">
               <img src="https://res.cloudinary.com/dyhgx4nro/image/upload/v1707914373/landing_block8_img6_fuhjfj.webp"
                    alt="" style="width: 100%" height="148" width="200" loading="lazy">
               <h3 style="margin: 0">Mother’s Day Gift</h3>
@@ -336,7 +368,7 @@
       </div>
     </div>
     <div class="bg-gray">
-      <div class="s-container">
+      <div class="s-container" class="animated-3">
         <div style="text-align: center; color: #000">
           <h1 class="title-sub">The Print Quality</h1>
         </div>
@@ -358,8 +390,38 @@
         </div>
       </div>
     </div>
+    <script>
+      window.sr = ScrollReveal(); // Initialize ScrollReveal
+
+      sr.reveal('.animated-element', {
+        origin: 'bottom', // Animation origin (can be 'top', 'left', 'right', etc.)
+        distance: '200px', // Distance to trigger animation (in pixels)
+        duration: 1000, // Animation duration (in milliseconds)
+        reset: false // Reset animation on scroll back (optional)
+      });
+      sr.reveal('.animated-1', {
+        origin: 'bottom', // Animation origin (can be 'top', 'left', 'right', etc.)
+        distance: '200px', // Distance to trigger animation (in pixels)
+        duration: 1000, // Animation duration (in milliseconds)
+        reset: false // Reset animation on scroll back (optional)
+      });
+      sr.reveal('.animated-2', {
+        origin: 'bottom', // Animation origin (can be 'top', 'left', 'right', etc.)
+        distance: '200px', // Distance to trigger animation (in pixels)
+        duration: 1000, // Animation duration (in milliseconds)
+        reset: false // Reset animation on scroll back (optional)
+      });
+      sr.reveal('.animated-3', {
+        origin: 'bottom', // Animation origin (can be 'top', 'left', 'right', etc.)
+        distance: '200px', // Distance to trigger animation (in pixels)
+        duration: 1000, // Animation duration (in milliseconds)
+        reset: false // Reset animation on scroll back (optional)
+      });
+
+      // Add more reveal options for other elements with different classes and animations
+      sr.reveal('.another-animated-element', { /* Customize options for this element */ });
+    </script>
   </div>
-  <?php include 'inc/footer.php'; ?>
 </div>
 </body>
 

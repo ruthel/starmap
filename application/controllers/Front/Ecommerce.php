@@ -19,7 +19,7 @@ class Ecommerce extends Front_controller
       'map_size' => $this->input->post('map_size'),
 //      'map_color' => $this->input->post('color'),
       'map_diplay_address' => $this->input->post('map_diplay_address'),
-//      'map_frame' => $this->input->post('map_frame'),
+      'shipping_address' => $this->input->post('shipping_address'),
       'map_date' => $this->input->post('map_date'),
     );
     $data = array();

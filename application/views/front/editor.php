@@ -7,7 +7,6 @@
   var autoBlur = false
 </script>
 <script type="text/javascript" src="https://pdfanticopy.com/noprint.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>-->
 <script src="<?= base_url('assets/front/d3-celestial-master/lib/') ?>d3.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
@@ -18,17 +17,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>js/bootstrap.min.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>js/popper.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
-
 <script src="<?= base_url('assets/front/d3-celestial-master/lib/') ?>d3.geo.projection.min.js"></script>
 <script src="<?= base_url('assets/front/d3-celestial-master/') ?>celestial.js"></script>
-
 <link rel="stylesheet" href="<?php echo base_url('assets/front/'); ?>css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -37,7 +33,6 @@
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -47,59 +42,85 @@
 <div style="overflow:hidden;margin:0 auto;display: none;">
   <div id="celestial-map"></div>
 </div>
+<div id="waiter" style="display: none">
+  <?php include("waiter.html") ?>
+</div>
 <div id="celestial-form" style="display: none;"></div>
 <div class="s-container">
-  <div class="nav mb-0">
-    <div id="title-bloc">
-      <div style="margin-right: 8px">
-        <img src="assets/media/img/logo.png" alt="" style="width: 32px; margin-top: 6px">
-      </div>
-      <h1 id="title" style="background: none"><a href="index.php">Starlight Map</a></h1>
-    </div>
+  <?php include('inc/menu.php') ?>
+</div>
+<div id="loader-container">
+</div>
+
+<script>
+  const loaderContainer = document.getElementById('loader-container');
+  loaderContainer.innerHTML = `<?php include 'loader.html'; ?>`;
+
+  // Function to remove the loader after page load (optional)
+  function removeLoader() {
+    setTimeout(() => {
+      loaderContainer.style.display = 'none';
+    }, 1000)
+  }
+
+  window.addEventListener('load', removeLoader);
+</script>
+<form style="padding-bottom: 250px; background: white; position: relative" class="" method='POST'
+      onsubmit="submitMap(event)" action='<?= base_url('ecommerce') ?>' id="myform">
+  <div id="shipping-address"
+       class="shadow-lg py-5 px-4 rounded-3"
+       style="display: none; position: absolute; width: 100%; max-width: 500px; margin: 72px auto; z-index: 10; max-height: 500px; height: auto; background: white; left: 0; right: 0; top: 0; bottom: 0">
     <div>
-      <ul class="menu">
-        <li><a href="./editor" class="activated">Create a star map</a></li>
-        <li><a href="./about">About Us</a></li>
-        <li><a href="./contact">Contact</a></li>
-      </ul>
+      <h3>Shipping Address</h3>
+      <div class="small text-black-50">Please, to have a delivery by email, enter your valid email address to where we will have to
+        deliver
+        the map
+      </div>
+      <div>
+        <input required name="shipping_address" type="text" placeholder="Email address" class="text-black form-control w-100 rounded-2 border-1 border mt-3">
+      </div>
+      <button class="btn btn-success mt-3" type="button" onclick="hasShipping=true;$('#shipping-address').css('display', 'none');$('#myform').submit()">Send Map</button>
     </div>
   </div>
-</div>
-<section style="padding-bottom: 250px; background: white" class="">
-  <div class="h-100 s-container pt-5">
-    <div style="display: flex; position: relative" id="editor-box" class="h-100 justify-content-center mx-auto">
+  <div class="h-100 pt-5 px-5">
+    <div style="display: flex; position: relative" id="editor-box" class="h-100 justify-content-center mx-auto w-100">
       <div id="main-map">
         <div id="custom-card-canvas"
-             style="display: flex;align-items: center;justify-content: center;">
-          <div class="custom-card portrait cpimg" id="custom-card-canvas2" style="margin: 0">
+             style="display: flex;align-items: center;justify-content: center;margin-top: 10%">
+          <div class="custom-card portrait cpimg" id="custom-card-canvas2"
+               style="margin: 0;width: 13.5vw; height: 32vh">
+            <div style="z-index: 2; position: relative">
+              <div style="padding: 24px">
+                <div id="stars-image"
+                     style="background-image: url('assets/media/img/circle-frame.png'); background-position: 50%;background-repeat: no-repeat; background-size: contain; padding:6%"></div>
+              </div>
+              <div class="user-image">
+                <img id="imagePreview" src="assets/front/images/img-placeholder.png" style="display: none">
+              </div>
+              <div class="texts">
+                <h1 class="text-content"></h1>
+                <p class="place-name">Place Name Here</p>
+                <p class="date"></p>
+                <p class="long-lat"><span class="long"></span>, <span class="lat"></span></p>
+                <p id="title-card" style="color: white; font-weight: bold; margin-top: 8px"></p>
+              </div>
+              <div id="qrcode" class="mt-3" style="clear: left"></div>
+              <style>
+                  #qrcode canvas {
+                      display: block !important;
+                      height: 64px;
+                  }
 
-            <div id="stars-image"></div>
-            <div class="user-image">
-              <img id="imagePreview" src="assets/front/images/img-placeholder.png" style="display: none">
+                  #qrcode img {
+                      display: none !important;
+                  }
+              </style>
             </div>
-            <div class="texts">
-              <h1 class="text-content"></h1>
-              <p class="place-name">Place Name Here</p>
-              <p class="date"></p>
-              <p class="long-lat"><span class="long"></span>, <span class="lat"></span></p>
-              <p id="title-card" style="color: white; font-weight: bold; margin-top: 8px"></p>
-            </div>
-            <div id="qrcode" class="mt-3" style="clear: left"></div>
-            <style>
-                #qrcode canvas {
-                    display: block !important;
-                    height: 64px;
-                }
-
-                #qrcode img {
-                    display: none !important;
-                }
-            </style>
           </div>
         </div>
       </div>
-      <div style="padding: 12px">
-        <form method='POST' onsubmit="submitMap(event)" action='<?= base_url('ecommerce') ?>' id="myform">
+      <div style="padding: 12px; max-width: 400px; position: relative">
+        <div>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" onclick="tab('moment')">
             <span class="nav-link active" id="moment-tab" data-toggle="tab" role="tab" aria-controls="home"
@@ -339,46 +360,7 @@
                     </div>
                   </div>
                 </div>
-                <!--                <div class="mstep5 hides mb-3">-->
-                <!--                  <input type="checkbox" class="checkbox" id="map-pdf-only"><label for="map-pdf-only" class="hint2">-->
-                <!--                    <span class="map-pdf-only small">Digital version only <strong>(63% OFF)</strong></span>-->
-                <!--                  </label>-->
-                <!--                  <span class="mobile_hint" style="display: none;">You will receive a PDF file right after the purchase. If you wish to receive a printed/framed copy to your chosen address, please, unselect this checkbox</span>-->
-                <!--                </div>-->
-                <!--                <div class="mb-3 nopdf d-flex w-100 rounded-pill" style="background: whitesmoke">-->
-                <!--                  <div class="py-2 px-3 radio-type">-->
-                <!--                    <input value="0" name="typePoster" type="radio" id="poster" checked=""><label class="radio_label"-->
-                <!--                                                                                                  for="poster">Poster</label>-->
-                <!--                  </div>-->
-                <!--                  <div class="py-2 px-3 radio-type">-->
-                <!--                    <input value="1" name="typePoster" type="radio" id="canvas"><label class="radio_label" for="canvas">Canvas</label>-->
-                <!--                  </div>-->
-                <!--                </div>-->
-
-                <!--                <div class="d-flex w-100 justify-content-between mb-1" style="color: black">-->
-                <!--                  <div class="radio">-->
-                <!--                    <input value="Without frame" name="map_style_poster" type="radio" id="without" checked-->
-                <!--                           onchange="function nam(){$('#fameType').hide()}">-->
-                <!--                    <label class="radio_label" for="without">&nbsp;Without frame</label>-->
-                <!--                  </div>-->
-                <!--                  <div class="radio">-->
-                <!--                    <input value="Frame" name="map_style_poster" type="radio" id="frame">-->
-                <!--                    <label class="radio_label" for="frame">&nbsp;Frame</label>-->
-                <!--                  </div>-->
-                <!--                  <div class="radio">-->
-                <!--                    <input value="Hanger" name="map_style_poster" type="radio" id="hanger"><label class="radio_label"-->
-                <!--                                                                                                  for="hanger">&nbsp;Hanger</label>-->
-                <!--                  </div>-->
-                <!---->
-                <!--                </div>-->
                 <div class="nopdf">
-                  <!--                  <div class="mstep7 noCanvasDecal w-100 mb-2 py-2" id="fameType">-->
-                  <!--                    <label><strong>Select frame</strong></label>-->
-                  <!--                    <select name="map_frame" class="w-100 py-2 rounded border" style="background: whitesmoke">-->
-                  <!--                      <option value="Black Thick Frame" selected>Black Thick Frame</option>-->
-                  <!--                      <option value="White Thick Frame">White Thick Frame</option>-->
-                  <!--                    </select></div>-->
-
                   <div class="mstep6 w-100 py-2">
                     <label for="map_size"><strong>Select size</strong></label>
                     <select id="map_size" name="map_size" class="w-100 py-2 rounded border"
@@ -401,7 +383,7 @@
               </div>
             </div>
           </div>
-        </form>
+        </div>
         <script>
           function tab(name) {
             $(`.nav-link`).removeClass('active')
@@ -413,7 +395,7 @@
       </div>
     </div>
   </div>
-</section>
+</form>
 <script type="text/javascript">
   function qrcode(event) {
     $('#qrcode').html('')
@@ -442,22 +424,29 @@
   });
 
   let generatedMap = false
+  let hasShipping = false
 
   function submitMap(ev) {
-    if (!generatedMap) {
+    if (!hasShipping) {
       ev.preventDefault()
-      $("#submitter").prop('disabled', true);
-      $('#submitter').text('Submitting ...')
-      setTimeout(() => {
-        generateImg()
-      }, 500)
+      $('#shipping-address').css('display', 'block')
     } else {
-      $("#submitter").prop('disabled', false);
-      $('#submitter').text('Submit')
-      let d_a = $('#myform').serializeArray()
-      if (d_a.map(e => e.value).includes("")) {
+      if (!generatedMap) {
         ev.preventDefault()
-        alert("Fill all the field please !")
+        $("#submitter").prop('disabled', true);
+        $('#submitter').text('Submitting ...')
+        $('#waiter').css("display", "block");
+        setTimeout(() => {
+          generateImg()
+        }, 10)
+      } else {
+        $("#submitter").prop('disabled', false);
+        $('#submitter').text('Submit')
+        let d_a = $('#myform').serializeArray()
+        if (d_a.map(e => e.value).includes("")) {
+          ev.preventDefault()
+          alert("Fill all the field please !")
+        }
       }
     }
   }
@@ -597,23 +586,16 @@
 
   const db = new Dexie('StarMap');
   db.version(1).stores({images: '++id, key, value'});
+  db.images.clear()
 
   function generateImg() {
     html2canvas(document.querySelector("#custom-card-canvas2"), {
-      scale: 10,
+      scale: 20,
       allowTaint: true,
       useCORS: true
     }).then(canvas => {
-
-      db.images.clear()
-
-      let data_04 = canvas.toDataURL('image/jpg', .4)
-      let data_10 = canvas.toDataURL('image/jpg', 1)
-
-      db.images.bulkPut([
-        {key: 'image', value: data_10},
-        {key: 'image-thumbnail', value: data_04}
-      ]).then(ok => {
+      let data_10 = canvas.toDataURL('image/png', .9)
+      db.images.bulkPut([{key: 'image', value: data_10}]).then(ok => {
         generatedMap = true
         $('#myform').submit()
       })
@@ -660,13 +642,6 @@
     $('.custom-card .texts .date').css('font-size', date_font_size + 'px');
     $('.custom-card .texts .place-name').css('font-size', date_font_size + 'px');
   }
-
-  const btn = document.getElementById("btn_download");
-  btn.addEventListener("click", () => {
-    Celestial.exportSVG((val) => {
-      $('#stars-image').html(val);
-    });
-  });
 </script>
 <script type="text/javascript">
   function initAutocomplete() {
