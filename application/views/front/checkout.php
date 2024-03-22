@@ -5,10 +5,47 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
   <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+  <link rel="stylesheet" href="<?php echo base_url('assets/front/'); ?>css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/map.css">
 </head>
 <body>
 <div class="s-container">
+  <div id="shipping-address"
+       class="position-absolute shadow-lg rounded-3 w-100"
+       style="padding: 16px 12px; max-width: 500px; margin: 72px auto; z-index: 10; max-height: 500px; height: auto; background: white; left: 0; right: 0; top: 0; bottom: 0">
+    <form>
+      <h3>Shipping Address</h3>
+      <div class="small text-black-50">Please, to have a delivery by email, enter your valid email address to
+        where we will have to
+        deliver
+        the map
+      </div>
+      <div>
+        <label for="input_shipping_address">
+          <input required name="shipping_address" id="input_shipping_address" type="email"
+                 placeholder="Email address"
+                 class="text-black form-control w-100 rounded-2 border-1 border mt-3">
+        </label>
+      </div>
+      <button class="btn btn-success mt-3" type="button"
+              onclick="function setShipping() {
+                        if(![null,''].includes($('#input_shipping_address').val())){
+                            hasShipping=true;
+                            localStorage.setItem('shipping_address',$('#input_shipping_address').val());
+                            $('#shipping-address').css('display', 'none');
+                            $('#myform').submit()
+                        }
+                    }
+                    setShipping()">
+        Send
+        Map
+      </button>
+    </form>
+  </div>
   <div class="nav">
     <div id="title-bloc">
       <div style="margin-right: 8px">
@@ -41,20 +78,20 @@
             <script>
 
 
-                const db = new Dexie('StarMap');
-                db.version(1).stores({images: '++id, key, value'});
+              const db = new Dexie('StarMap');
+              db.version(1).stores({images: '++id, key, value'});
 
-                // Open the database
-                db.open().catch(function (e) {
-                    console.error("Open failed: " + e);
-                });
+              // Open the database
+              db.open().catch(function (e) {
+                console.error("Open failed: " + e);
+              });
 
-                // Retrieve data from the table
-                db.images.where('key').equals('image').each(function(record) {
-                    document.getElementById('map').src = record.value
-                }).catch(function (error) {
-                    console.error("Error retrieving records: " + error);
-                });
+              // Retrieve data from the table
+              db.images.where('key').equals('image').each(function (record) {
+                document.getElementById('map').src = record.value
+              }).catch(function (error) {
+                console.error("Error retrieving records: " + error);
+              });
 
               document.addEventListener('contextmenu', event => {
                 event.preventDefault();
@@ -81,7 +118,8 @@
         <td colspan="4">
           <hr>
           <div style="text-align: right">
-            <button style="background: #E6E6E6; padding: 8px 16px; border: none; cursor:pointer;" type="button">UPDATE
+            <button style="background: #E6E6E6; padding: 8px 16px; border: none; cursor:pointer;"
+                    type="button">UPDATE
               CART
             </button>
           </div>

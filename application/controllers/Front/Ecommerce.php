@@ -19,7 +19,6 @@ class Ecommerce extends Front_controller
       'map_size' => $this->input->post('map_size'),
 //      'map_color' => $this->input->post('color'),
       'map_diplay_address' => $this->input->post('map_diplay_address'),
-      'shipping_address' => $this->input->post('shipping_address'),
       'map_date' => $this->input->post('map_date'),
     );
     $data = array();
@@ -43,6 +42,7 @@ class Ecommerce extends Front_controller
       'customer_last_name' => "aa",
       'customer_email' => "aa",
       'customer_message' => "aa",
+      'shipping_address' => "aa",
     );
 
     $data = array();

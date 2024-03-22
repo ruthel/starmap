@@ -84,11 +84,11 @@
 .custom-card::after {
     position: absolute;
     content: "";
-    height: 100%;
+    height: 95%;
     width: 100%;
     top: 0;
     background-image: url('../media/img/WoodenFrame.png');
-    background-size: cover;
+    background-size: 100% 100%;
     left: 0;
     z-index: 2;
 }
@@ -97,11 +97,12 @@
     position: absolute;
     background: #000;
     content: "";
-    height: 89%;
+    height: 85%;
     width: 85%;
-    top: 6.5%;
+    top: 5%;
     left: 7.5%;
     z-index: 1;
+    background-size: 100% 100%;
 }
 
 .custom-card .user-image {

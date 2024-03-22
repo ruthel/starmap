@@ -67,28 +67,13 @@
 </script>
 <form style="padding-bottom: 250px; background: white; position: relative" class="" method='POST'
       onsubmit="submitMap(event)" action='<?= base_url('ecommerce') ?>' id="myform">
-  <div id="shipping-address"
-       class="shadow-lg py-5 px-4 rounded-3"
-       style="display: none; position: absolute; width: 100%; max-width: 500px; margin: 72px auto; z-index: 10; max-height: 500px; height: auto; background: white; left: 0; right: 0; top: 0; bottom: 0">
-    <div>
-      <h3>Shipping Address</h3>
-      <div class="small text-black-50">Please, to have a delivery by email, enter your valid email address to where we will have to
-        deliver
-        the map
-      </div>
-      <div>
-        <input required name="shipping_address" type="text" placeholder="Email address" class="text-black form-control w-100 rounded-2 border-1 border mt-3">
-      </div>
-      <button class="btn btn-success mt-3" type="button" onclick="hasShipping=true;$('#shipping-address').css('display', 'none');$('#myform').submit()">Send Map</button>
-    </div>
-  </div>
-  <div class="h-100 pt-5 px-5">
+  <div class="h-100">
     <div style="display: flex; position: relative" id="editor-box" class="h-100 justify-content-center mx-auto w-100">
       <div id="main-map">
         <div id="custom-card-canvas"
              style="display: flex;align-items: center;justify-content: center;margin-top: 10%">
           <div class="custom-card portrait cpimg" id="custom-card-canvas2"
-               style="margin: 0;width: 13.5vw; height: 32vh">
+               style="margin: 0;width: 18vw; height: 42.6vh">
             <div style="z-index: 2; position: relative">
               <div style="padding: 24px">
                 <div id="stars-image"
@@ -427,10 +412,10 @@
   let hasShipping = false
 
   function submitMap(ev) {
-    if (!hasShipping) {
-      ev.preventDefault()
-      $('#shipping-address').css('display', 'block')
-    } else {
+    // if (!hasShipping) {
+    //   ev.preventDefault()
+    //   $('#shipping-address').css('display', 'block')
+    // } else {
       if (!generatedMap) {
         ev.preventDefault()
         $("#submitter").prop('disabled', true);
@@ -448,13 +433,13 @@
           alert("Fill all the field please !")
         }
       }
-    }
+    // }
   }
 
 
   let DATE = new Date(new Date().getFullYear(), 10, 1);
-  let LAT = 95.525321;
-  let LONG = -455.815916;
+  let LAT = 0;
+  let LONG = 0;
   const FONT = "Raleway";
   let place_name = 'Enter Place Name';
 

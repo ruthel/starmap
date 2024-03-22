@@ -18,5 +18,10 @@
     <orderEntry type="library" name="lz-string" level="application" />
     <orderEntry type="library" name="download" level="application" />
     <orderEntry type="library" name="dexie" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery.validate" level="application" />
+    <orderEntry type="library" name="jquery-3.6.3" level="application" />
+    <orderEntry type="library" name="dexie" level="application" />
+    <orderEntry type="library" name="lz-string" level="application" />
   </component>
 </module>
