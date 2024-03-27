@@ -22,11 +22,11 @@ class Paypal extends Front_controller
     $config['smtp_host'] = 'hasanmehdi.com';
     $config['smtp_user'] = 'selfservice@hasanmehdi.com';
     $config['smtp_pass'] = '_1234AbC@Me';
-    $config['smtp_port'] = 465; // or 465 for SSL
-    $config['smtp_crypto'] = 'ssl'; // or 'ssl'
-    $config['mailtype'] = 'html'; // or 'text'
+    $config['smtp_port'] = 465;
+    $config['smtp_crypto'] = 'ssl';
+    $config['mailtype'] = 'html';
     $config['charset'] = 'utf-8';
-    $config['newline'] = "\r\n"; // required for some servers
+    $config['newline'] = "\r\n";
 
     $this->email->initialize($config);
     $this->email->set_newline("\r\n");
@@ -73,7 +73,6 @@ class Paypal extends Front_controller
       $currency_code = $paypalInfo["cc"];
       $status = $paypalInfo["st"];
 
-      // Get product info from the database
       $data = array();
       $data['table'] = 'map';
       $data['where'] = array('map_id' => $item_number);
@@ -86,6 +85,8 @@ class Paypal extends Front_controller
       $data['where'] = array('txn_id' => $txn_id);
       $data['output_type'] = 'row';
       $paymentData = $this->general->get($data);
+
+
     }
 
     // Pass the transaction data to view

@@ -10,7 +10,7 @@
       <li><a href="./editor" class="<?=$_SERVER['REQUEST_URI']=='/editor'?'activated':''?>">Create Star Map</a></li>
       <li><a href="./about" class="<?=$_SERVER['REQUEST_URI']=='/about'?'activated':''?>">About Us</a></li>
       <li><a href="./contact" class="<?=$_SERVER['REQUEST_URI']=='/contact'?'activated':''?>">Contact</a></li>
-      <li><a href="./faq" class="<?=$_SERVER['REQUEST_URI']=='/faq'?'activated':''?>">Faq</a></li>
+      <li><a href="./faq" class="<?=$_SERVER['REQUEST_URI']=='/faq'?'activated':''?>">FAQ</a></li>
     </ul>
   </div>
 </div>

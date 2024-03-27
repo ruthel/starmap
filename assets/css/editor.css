@@ -106,11 +106,11 @@
 }
 
 .custom-card .user-image {
-    width: 190px;
+    width: 72px;
     border-radius: 15px;
     overflow: hidden;
-    max-height: 120px;
-    margin: 10px;
+    max-height: 72px;
+    margin: 10px auto;
 }
 
 .custom-card .user-image img {

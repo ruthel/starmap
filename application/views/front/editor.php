@@ -53,6 +53,9 @@
 </div>
 
 <script>
+  var worker = new Worker('./worker.js');
+  worker.postMessage('Happy Birthday');
+
   const loaderContainer = document.getElementById('loader-container');
   loaderContainer.innerHTML = `<?php include 'loader.html'; ?>`;
 
@@ -71,11 +74,11 @@
     <div style="display: flex; position: relative" id="editor-box" class="h-100 justify-content-center mx-auto w-100">
       <div id="main-map">
         <div id="custom-card-canvas"
-             style="display: flex;align-items: center;justify-content: center;margin-top: 10%">
+             style="display: flex;align-items: center;justify-content: center;margin-top: 6%">
           <div class="custom-card portrait cpimg" id="custom-card-canvas2"
-               style="margin: 0;width: 18vw; height: 42.6vh">
+               style="margin: 0;width: 18vw; height: 48.6vh">
             <div style="z-index: 2; position: relative">
-              <div style="padding: 24px">
+              <div style="padding: 0 24px">
                 <div id="stars-image"
                      style="background-image: url('assets/media/img/circle-frame.png'); background-position: 50%;background-repeat: no-repeat; background-size: contain; padding:6%"></div>
               </div>
@@ -89,12 +92,12 @@
                 <p class="long-lat"><span class="long"></span>, <span class="lat"></span></p>
                 <p id="title-card" style="color: white; font-weight: bold; margin-top: 8px"></p>
               </div>
-              <div id="qrcode" class="mt-3" style="clear: left"></div>
+              <div id="qrcode" class="mt-3"
+                   style="clear: left; display: flex;align-items: center;justify-content: center"></div>
               <style>
                   #qrcode canvas {
                       display: block !important;
-                      height: 64px;
-                  }
+                      height: 36px;                  }
 
                   #qrcode img {
                       display: none !important;
@@ -416,23 +419,23 @@
     //   ev.preventDefault()
     //   $('#shipping-address').css('display', 'block')
     // } else {
-      if (!generatedMap) {
+    if (!generatedMap) {
+      ev.preventDefault()
+      $("#submitter").prop('disabled', true);
+      $('#submitter').text('Submitting ...')
+      $('#waiter').css("display", "block");
+      setTimeout(() => {
+        generateImg()
+      }, 10)
+    } else {
+      $("#submitter").prop('disabled', false);
+      $('#submitter').text('Submit')
+      let d_a = $('#myform').serializeArray()
+      if (d_a.map(e => e.value).includes("")) {
         ev.preventDefault()
-        $("#submitter").prop('disabled', true);
-        $('#submitter').text('Submitting ...')
-        $('#waiter').css("display", "block");
-        setTimeout(() => {
-          generateImg()
-        }, 10)
-      } else {
-        $("#submitter").prop('disabled', false);
-        $('#submitter').text('Submit')
-        let d_a = $('#myform').serializeArray()
-        if (d_a.map(e => e.value).includes("")) {
-          ev.preventDefault()
-          alert("Fill all the field please !")
-        }
+        alert("Fill all the field please !")
       }
+    }
     // }
   }
 
