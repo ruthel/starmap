@@ -53,11 +53,126 @@
 </div>
 
 <script>
-  var worker = new Worker('./worker.js');
-  worker.postMessage('Happy Birthday');
 
   const loaderContainer = document.getElementById('loader-container');
   loaderContainer.innerHTML = `<?php include 'loader.html'; ?>`;
+
+  function init_celestial(index) {
+    let url = ''
+    switch (index) {
+      case 0:
+        url = 'url(\'assets/media/img/circle-frame.png\')'
+        break
+      case 1:
+        url = 'url(\'assets/media/img/circle-frame-black.png\')'
+
+    }
+    $('#stars-image').css('background-image', url)
+    // document.getElementById('stars-image').style.backgroundImage = url
+    let style = document.getElementById('custom-card-canvas2').style
+    document.getElementById('custom-card-canvas2').style.color = configs[index].stroke_bg + ' !important'
+    style.setProperty('--background', configs[index].fill_bg);
+
+
+    $('.text-content').css('color', configs[index].stroke_bg)
+    $('.place-name').css('color', configs[index].stroke_bg)
+    $('.date').css('color', configs[index].stroke_bg)
+    $('.long-lat').css('color', configs[index].stroke_bg)
+    $('#title-card').css('color', configs[index].stroke_bg)
+
+    let config = {
+      container: "celestial-form",
+      width: 1024,
+      datapath: '<?= base_url('assets/front/d3-celestial-master/data/')?>',
+      form: false,
+      advanced: false,
+      interactive: false,
+      disableAnimations: true,
+      zoomlevel: null,
+      zoomextend: 5,
+      projection: "airy",
+      transform: "equatorial",
+      follow: "zenith",
+      geopos: [LAT, LONG],
+      lines: {
+        graticule: {show: false},
+        equatorial: {show: false},
+        ecliptic: {show: false},
+        galactic: {show: false},
+        supergalactic: {show: false}
+      },
+
+      planets: {
+        show: false,
+        which: ["mer", "ven", "ter", "lun", "mar", "jup", "sat"],
+
+        symbolType: "disk",
+        names: false,
+        nameStyle: {
+          fill: "#00ccff",
+          font: `14px ${FONT}`,
+          align: "center",
+          baseline: "top"
+        },
+        namesType: "en"
+      },
+
+      dsos: {
+        show: false,
+        names: false
+      },
+
+      constellations: {
+        names: false,
+        namesType: "iau",
+        nameStyle: {
+          fill: configs[index].constellations,
+          align: "center",
+          baseline: "middle",
+          font: [`14px ${FONT}`, `8px ${FONT}`, `0px ${FONT}`]
+        },
+        lines: true,
+        lineStyle: {
+          stroke: configs[index].lineStyle, width: 1, opacity: 1//0.4
+        }
+      },
+
+      mw: {
+        show: false,
+        style: {
+          fill: configs[index].stroke_bg, opacity: 1 //0.02
+        }
+      },
+
+      background: {
+        fill: configs[index].fill_bg,
+        stroke: configs[index].stroke_bg,
+        opacity: 1,
+        width: 4
+      },
+
+      stars: {
+        colors: true,
+        size: 10,
+        limit: 60,
+        exponent: -0.30,
+        designation: false,
+
+        propername: false,
+        propernameType: "name",
+        propernameStyle: {
+          fill: configs[index].fill_bg,
+          font: `8px ${FONT}`,
+          align: "right",
+          baseline: "center"
+        },
+        propernameLimit: 2.0
+      }
+    };
+    Celestial.display(config);
+    Celestial.skyview({date: DATE});
+    map_draw();
+  }
 
   // Function to remove the loader after page load (optional)
   function removeLoader() {
@@ -97,7 +212,8 @@
               <style>
                   #qrcode canvas {
                       display: block !important;
-                      height: 36px;                  }
+                      height: 36px;
+                  }
 
                   #qrcode img {
                       display: none !important;
@@ -222,125 +338,50 @@
                   <div class="themes-group mb-3 mt-1">
                     <ul id="map-themes" class="p-0"
                         style="list-style: none; display: grid; grid-template-columns: repeat(5,1fr); gap: 8px">
-                      <li id="map-theme2" class="col" style="height: 76px;">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme2.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme2_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme2.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme2_2x.jpg"
-                               alt=""></picture>
+                      <li class="col" style="height: 76px;" onclick="init_celestial(0)">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme2.jpg" alt="">
                       </li>
-                      <li id="map-theme1" style="height: 76px;" class="col">
-                        <picture>
-                          <source type="image/jpg"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme1.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme1_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme1.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme1_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;" class="col" onclick="init_celestial(1)">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme1.jpg" alt="">
                       </li>
-                      <li id="map-theme14" style="height: 76px;" class="col">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme14.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme14_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme14.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme14_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;" class="col" onclick="">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme14.jpg" alt="">
                       </li>
-                      <li id="map-theme10" style="height: 76px;" class="col">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme10.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme10_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme10.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme10_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;" class="col">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme10.jpg" alt="">
                       </li>
-                      <li id="map-theme11" style="height: 76px;">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme11.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme11_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme11.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme11_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme11.jpg" alt="">
                       </li>
-                      <li id="map-theme12" style="height: 76px;">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme12.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme12_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme12.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme12_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme12.jpg" alt="">
                       </li>
-                      <li id="map-theme7" style="height: 76px;" class="">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme7.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme7_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme7.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme7_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;" class="">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme7.jpg" alt="">
                       </li>
-                      <li id="map-theme21" style="height: 76px;" class="">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme21.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme21_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme21.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme21_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;" class="">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme21.jpg" alt="">
                       </li>
-                      <li id="map-theme22" style="height: 76px;" class="">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme22.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme22_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme22.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme22_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;" class="">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme22.jpg" alt="">
                       </li>
-                      <li id="map-theme15" style="height: 76px;" class="">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme15.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme15_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme15.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme15_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;" class="">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme15.jpg" alt="">
                       </li>
-                      <li id="map-theme17" style="height: 76px;">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme17.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme17_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme17.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme17_2x.jpg"
-                               alt=""></picture>
+                      <li style="height: 76px;">
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme17.jpg" alt="">
                       </li>
                       <li id="map-theme16" style="height: 76px;">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme16.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme16_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme16.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme16_2x.jpg"
-                               alt=""></picture>
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme16.jpg" alt="">
                       </li>
                       <li id="map-theme18" style="height: 76px;">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme18.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme18_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme18.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme18_2x.jpg"
-                               alt=""></picture>
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme18.jpg" alt="">
                       </li>
                       <li id="map-theme8" style="height: 76px;" class="selected">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme8.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme8_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme8.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme8_2x.jpg"
-                               alt=""></picture>
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme8.jpg" alt="">
                       </li>
                       <li id="map-theme3" style="height: 76px;">
-                        <picture>
-                          <source type="image/webp"
-                                  srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme3.webp 1x, https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme3_2x.webp 2x ">
-                          <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme3.jpg"
-                               srcset="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme3_2x.jpg"
-                               alt=""></picture>
+                        <img src="https://cdn.cosmonova.org/bts/images/constructor/other/cert_theme3.jpg" alt="">
                       </li>
                     </ul>
                     <div id="hideshow" class="text-center small">
@@ -439,102 +480,20 @@
     // }
   }
 
+  const configs = [
+    {constellations: '#ffffff', fill_bg: '#000000', stroke_bg: '#ffffff', lineStyle: '#cccccc'},
+    {constellations: '#000000', fill_bg: '#ffffff', stroke_bg: '#000000', lineStyle: '#000000'}
+  ]
+
 
   let DATE = new Date(new Date().getFullYear(), 10, 1);
   let LAT = 0;
   let LONG = 0;
   const FONT = "Raleway";
-  let place_name = 'Enter Place Name';
+  let place_name = "Enter Place Name";
 
-  let config = {
-    container: "celestial-form",
-    width: 1024,
-    datapath: '<?= base_url('assets/front/d3-celestial-master/data/')?>',
-    form: false,
-    advanced: false,
-    interactive: false,
-    disableAnimations: true,
-    zoomlevel: null,
-    zoomextend: 5,
-    projection: "airy",
-    transform: "equatorial",
-    follow: "zenith",
-    geopos: [LAT, LONG],
-    lines: {
-      graticule: {show: false},
-      equatorial: {show: false},
-      ecliptic: {show: false},
-      galactic: {show: false},
-      supergalactic: {show: false}
-    },
 
-    planets: {
-      show: false,
-      which: ["mer", "ven", "ter", "lun", "mar", "jup", "sat"],
-
-      symbolType: "disk",
-      names: false,
-      nameStyle: {
-        fill: "#00ccff",
-        font: `14px ${FONT}`,
-        align: "center",
-        baseline: "top"
-      },
-      namesType: "en"
-    },
-
-    dsos: {
-      show: false,
-      names: false
-    },
-
-    constellations: {
-      names: false,
-      namesType: "iau",
-      nameStyle: {
-        fill: "#ffffff",
-        align: "center",
-        baseline: "middle",
-        font: [`14px ${FONT}`, `8px ${FONT}`, `0px ${FONT}`]
-      },
-      lines: true,
-      lineStyle: {stroke: "#cccccc", width: 1, opacity: 0.4}
-    },
-
-    mw: {
-      show: false,
-      style: {fill: "#ffffff", opacity: 0.02}
-    },
-
-    background: {
-      fill: "#000000",
-      stroke: "#ffffff",
-      opacity: 1,
-      width: 4
-    },
-
-    stars: {
-      colors: true,
-      size: 10,
-      limit: 60,
-      exponent: -0.30,
-      designation: false,
-
-      propername: false,
-      propernameType: "name",
-      propernameStyle: {
-        fill: "#000000",
-        font: `8px ${FONT}`,
-        align: "right",
-        baseline: "center"
-      },
-      propernameLimit: 2.0
-    }
-  };
-
-  Celestial.display(config);
-  Celestial.skyview({date: DATE});
-  map_draw();
+  init_celestial(0)
 
   function setTitle(event) {
     $('#title-card').html(event.target.value)

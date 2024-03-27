@@ -93,9 +93,12 @@
     z-index: 2;
 }
 
+:root {
+    --background: #000;
+}
 .custom-card::before {
     position: absolute;
-    background: #000;
+    background: var(--background);
     content: "";
     height: 85%;
     width: 85%;
